@@ -3,12 +3,16 @@ package conector
 import java.sql.*
 import dominio.Contenido
 import repos.RepoContenidos
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class QueryContenido {
 	//def static void main(String[] args) {
 		// TODO Auto-generated method stub
 	RepoContenidos contenidos=	RepoContenidos.getInstance
-	def llenarContenidos(){	 
+	def llenar(){	 
+		contenidos.vaciar
+		
 		try {
 			// Creamos conexion
 			var Connection unaConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "1234")

@@ -2,7 +2,9 @@ package repos
 
 import java.util.List
 import dominio.Contenido
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class RepoContenidos {
 
 	List<Contenido> listaContenidos = newArrayList
@@ -19,4 +21,9 @@ class RepoContenidos {
 		listaContenidos.add(contenido)
 
 	}
+	
+	def vaciar() {
+		listaContenidos = newArrayList
+	}
+	
 }

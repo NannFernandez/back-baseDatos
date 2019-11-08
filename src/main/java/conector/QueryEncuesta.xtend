@@ -9,14 +9,17 @@ import java.sql.Statement
 import javax.swing.JOptionPane
 import repos.RepoEncuestas
 import dominio.Encuesta
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class QueryEncuesta {
 	RepoEncuestas encuestas=	RepoEncuestas.getInstance
 	// String queryMediaPuntajeAsc = "CALL MEDIA_PUNTAJE_ASC(?, ?, ?)";
 	// String queryMediaPuntajeDesc = "CALL MEDIA_PUNTAJE_DESC(?, ?, ?)";
 	// String queryMediaEncuestaAsc = "CALL MEDIA_ENCUESTA_ASC(?, ?, ?)";
 	// String queryMediaEncuestDesc = "CALL MEDIA_ENCUESTA_DESC(?, ?, ?)";
-	def void queryMedias(String query, int registros, Date fechaDesde, Date fechaHasta) {
+	def void llenar(String query, int registros, Date fechaDesde, Date fechaHasta) {
+		encuestas.vaciar
 		try {
 			var Connection unaConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root",
 				"mydogpupy170312")

@@ -2,8 +2,11 @@ package repos;
 
 import dominio.Contenido;
 import java.util.List;
+import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
+import org.eclipse.xtext.xbase.lib.Pure;
 
+@Accessors
 @SuppressWarnings("all")
 public class RepoContenidos {
   private List<Contenido> listaContenidos = CollectionLiterals.<Contenido>newArrayList();
@@ -24,5 +27,18 @@ public class RepoContenidos {
   
   public boolean create(final Contenido contenido) {
     return this.listaContenidos.add(contenido);
+  }
+  
+  public List<Contenido> vaciar() {
+    return this.listaContenidos = CollectionLiterals.<Contenido>newArrayList();
+  }
+  
+  @Pure
+  public List<Contenido> getListaContenidos() {
+    return this.listaContenidos;
+  }
+  
+  public void setListaContenidos(final List<Contenido> listaContenidos) {
+    this.listaContenidos = listaContenidos;
   }
 }

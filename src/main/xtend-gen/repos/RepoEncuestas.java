@@ -2,8 +2,11 @@ package repos;
 
 import dominio.Encuesta;
 import java.util.List;
+import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
+import org.eclipse.xtext.xbase.lib.Pure;
 
+@Accessors
 @SuppressWarnings("all")
 public class RepoEncuestas {
   private List<Encuesta> listaEncuestas = CollectionLiterals.<Encuesta>newArrayList();
@@ -24,5 +27,18 @@ public class RepoEncuestas {
   
   public boolean create(final Encuesta encuesta) {
     return this.listaEncuestas.add(encuesta);
+  }
+  
+  public List<Encuesta> vaciar() {
+    return this.listaEncuestas = CollectionLiterals.<Encuesta>newArrayList();
+  }
+  
+  @Pure
+  public List<Encuesta> getListaEncuestas() {
+    return this.listaEncuestas;
+  }
+  
+  public void setListaEncuestas(final List<Encuesta> listaEncuestas) {
+    this.listaEncuestas = listaEncuestas;
   }
 }

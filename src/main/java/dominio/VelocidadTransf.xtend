@@ -1,5 +1,8 @@
 package dominio
 
+import org.eclipse.xtend.lib.annotations.Accessors
+
+@Accessors
 class VelocidadTransf {
 	String titulo= ""
 	String extensionArchivo= ""

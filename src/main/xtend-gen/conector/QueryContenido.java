@@ -5,14 +5,18 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.Exceptions;
+import org.eclipse.xtext.xbase.lib.Pure;
 import repos.RepoContenidos;
 
+@Accessors
 @SuppressWarnings("all")
 public class QueryContenido {
   private RepoContenidos contenidos = RepoContenidos.getInstance();
   
-  public void llenarContenidos() {
+  public void llenar() {
+    this.contenidos.vaciar();
     try {
       Connection unaConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "1234");
       Statement unStatement = unaConexion.createStatement();
@@ -37,5 +41,14 @@ public class QueryContenido {
         throw Exceptions.sneakyThrow(_t);
       }
     }
+  }
+  
+  @Pure
+  public RepoContenidos getContenidos() {
+    return this.contenidos;
+  }
+  
+  public void setContenidos(final RepoContenidos contenidos) {
+    this.contenidos = contenidos;
   }
 }

@@ -8,17 +8,21 @@ import java.sql.Statement
 import javax.swing.JOptionPane
 import dominio.VelocidadTransf
 import repos.RepoVelocidad
+import org.eclipse.xtend.lib.annotations.Accessors
 
+/*"CALL MOSTRAR_VELOC_TRANSF_ASC(?)"*/
+/*"CALL MOSTRAR_VELOC_TRANSF_DESC(?)"*/
+@Accessors
 class QueryVelocidad {
 	
 	RepoVelocidad velocidades=	RepoVelocidad.getInstance
 
-	def void queryVeloc(String query, int registros) {
+	def void llenar(String query, int registros) {
 		try {
 			var Connection unaConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root",
-				"mydogpupy170312")
+				"mydogpupy170312"/*contraseña */)
 			var PreparedStatement unStatement = unaConexion.prepareStatement(query)
-			/*"CALL MOSTRAR_VELOC_TRANSF_ASC(?)"*/ unStatement.setInt(1, registros)
+			 unStatement.setInt(1, registros)
 			var ResultSet unResultSet = unStatement.executeQuery()
 			while (unResultSet.next()) {
 				

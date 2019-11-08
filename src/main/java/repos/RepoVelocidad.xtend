@@ -2,7 +2,9 @@ package repos
 
 import dominio.VelocidadTransf
 import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class RepoVelocidad {
 	
 	List<VelocidadTransf> listaVelocidad = newArrayList
