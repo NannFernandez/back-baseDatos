@@ -19,7 +19,7 @@ class QueryContenido {
 			// Creamos objeto statement
 			var Statement unStatement = unaConexion.createStatement()
 			// Ejecutar instrucciones SQL
-			var ResultSet unResultSet = unStatement.executeQuery("SELECT * FROM CONTENIDO")
+			var ResultSet unResultSet = unStatement.executeQuery("CALL MOSTRAR_CONTENIDO()")
 			// Recorrer el ResultSet
 			while (unResultSet.next()) {
 				// mientras exista un proximo registro
@@ -27,8 +27,7 @@ class QueryContenido {
 				var String titulo = unResultSet.getString("titulo")
 				var String fechaPublicacion = unResultSet.getString("fechaPublicacion")
 				var String extensionArchivo = unResultSet.getString("extensionArchivo")
-				var String tipoArchivo = unResultSet.getString("tipoArchivo")
-				var contenido= new Contenido (idContenido,titulo,fechaPublicacion,extensionArchivo,tipoArchivo)
+				var contenido= new Contenido (idContenido,titulo,fechaPublicacion,extensionArchivo)
 				contenidos.create(contenido)
 				
 			}
@@ -39,3 +38,4 @@ class QueryContenido {
 
 	}
 }
+                                                                                                               

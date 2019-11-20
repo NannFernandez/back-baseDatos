@@ -20,15 +20,14 @@ public class QueryContenido {
     try {
       Connection unaConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "1234");
       Statement unStatement = unaConexion.createStatement();
-      ResultSet unResultSet = unStatement.executeQuery("SELECT * FROM CONTENIDO");
+      ResultSet unResultSet = unStatement.executeQuery("CALL MOSTRAR_CONTENIDO()");
       while (unResultSet.next()) {
         {
           String idContenido = unResultSet.getString("idContenido");
           String titulo = unResultSet.getString("titulo");
           String fechaPublicacion = unResultSet.getString("fechaPublicacion");
           String extensionArchivo = unResultSet.getString("extensionArchivo");
-          String tipoArchivo = unResultSet.getString("tipoArchivo");
-          Contenido contenido = new Contenido(idContenido, titulo, fechaPublicacion, extensionArchivo, tipoArchivo);
+          Contenido contenido = new Contenido(idContenido, titulo, fechaPublicacion, extensionArchivo);
           this.contenidos.create(contenido);
         }
       }
