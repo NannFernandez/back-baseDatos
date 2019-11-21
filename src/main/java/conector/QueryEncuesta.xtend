@@ -1,7 +1,7 @@
 package conector
 
 import java.sql.Connection
-import java.sql.Date
+
 import java.sql.DriverManager
 import java.sql.PreparedStatement
 import java.sql.ResultSet
@@ -10,6 +10,7 @@ import javax.swing.JOptionPane
 import repos.RepoEncuestas
 import dominio.Encuesta
 import org.eclipse.xtend.lib.annotations.Accessors
+import java.sql.Date
 
 @Accessors
 class QueryEncuesta {

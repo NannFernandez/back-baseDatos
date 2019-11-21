@@ -2,9 +2,12 @@ package controller;
 
 import conector.QueryCategoria;
 import conector.QueryContenido;
+import conector.QueryEncuesta;
 import conector.QueryTitulos;
 import conector.QueryVelocidad;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.ServletException;
@@ -40,6 +43,8 @@ public class InfoMultimediaController extends ResultFactory {
   private RepoCategorias categorias = RepoCategorias.getInstance();
   
   private RepoTitulos titulos = RepoTitulos.getInstance();
+  
+  private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
   
   @Get("/contenidos")
   public Result contenido(final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
@@ -209,6 +214,130 @@ public class InfoMultimediaController extends ResultFactory {
     return _xblockexpression;
   }
   
+  @Get("/mediaPuntajeAsc/:registros/:desde/:hasta")
+  public Result mediaPuntajeAsc(final String registros, final String desde, final String hasta, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
+    try {
+      Result _xblockexpression = null;
+      {
+        Date fechaDesde = this.sdf.parse(desde);
+        long _time = fechaDesde.getTime();
+        java.sql.Date fechaDesdeParser = new java.sql.Date(_time);
+        Date fechaHasta = this.sdf.parse(desde);
+        long _time_1 = fechaHasta.getTime();
+        java.sql.Date fechaHastaParser = new java.sql.Date(_time_1);
+        QueryEncuesta encuesta = new QueryEncuesta();
+        encuesta.llenar("CALL MEDIA_PUNTAJE_ASC(?, ?, ?)", Integer.parseInt(registros), fechaDesdeParser, fechaHastaParser);
+        Result _xtrycatchfinallyexpression = null;
+        try {
+          _xtrycatchfinallyexpression = ResultFactory.ok(this._jSONUtils.toJson(this.titulos.getListaTitulo()));
+        } catch (final Throwable _t) {
+          if (_t instanceof UserException) {
+            _xtrycatchfinallyexpression = null;
+          } else {
+            throw Exceptions.sneakyThrow(_t);
+          }
+        }
+        _xblockexpression = _xtrycatchfinallyexpression;
+      }
+      return _xblockexpression;
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Get("/mediaPuntajeDesc/:registros/:desde/:hasta")
+  public Result mediaPuntajeDesc(final String registros, final String desde, final String hasta, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
+    try {
+      Result _xblockexpression = null;
+      {
+        Date fechaDesde = this.sdf.parse(desde);
+        long _time = fechaDesde.getTime();
+        java.sql.Date fechaDesdeParser = new java.sql.Date(_time);
+        Date fechaHasta = this.sdf.parse(desde);
+        long _time_1 = fechaHasta.getTime();
+        java.sql.Date fechaHastaParser = new java.sql.Date(_time_1);
+        QueryEncuesta encuesta = new QueryEncuesta();
+        encuesta.llenar("CALL MEDIA_PUNTAJE_DESC(?, ?, ?)", Integer.parseInt(registros), fechaDesdeParser, fechaHastaParser);
+        Result _xtrycatchfinallyexpression = null;
+        try {
+          _xtrycatchfinallyexpression = ResultFactory.ok(this._jSONUtils.toJson(this.titulos.getListaTitulo()));
+        } catch (final Throwable _t) {
+          if (_t instanceof UserException) {
+            _xtrycatchfinallyexpression = null;
+          } else {
+            throw Exceptions.sneakyThrow(_t);
+          }
+        }
+        _xblockexpression = _xtrycatchfinallyexpression;
+      }
+      return _xblockexpression;
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Get("/mediaEncuestaDesc/:registros/:desde/:hasta")
+  public Result mediaEncuestaDesc(final String registros, final String desde, final String hasta, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
+    try {
+      Result _xblockexpression = null;
+      {
+        Date fechaDesde = this.sdf.parse(desde);
+        long _time = fechaDesde.getTime();
+        java.sql.Date fechaDesdeParser = new java.sql.Date(_time);
+        Date fechaHasta = this.sdf.parse(desde);
+        long _time_1 = fechaHasta.getTime();
+        java.sql.Date fechaHastaParser = new java.sql.Date(_time_1);
+        QueryEncuesta encuesta = new QueryEncuesta();
+        encuesta.llenar("CALL MEDIA_ENCUESTA_DESC(?, ?, ?)", Integer.parseInt(registros), fechaDesdeParser, fechaHastaParser);
+        Result _xtrycatchfinallyexpression = null;
+        try {
+          _xtrycatchfinallyexpression = ResultFactory.ok(this._jSONUtils.toJson(this.titulos.getListaTitulo()));
+        } catch (final Throwable _t) {
+          if (_t instanceof UserException) {
+            _xtrycatchfinallyexpression = null;
+          } else {
+            throw Exceptions.sneakyThrow(_t);
+          }
+        }
+        _xblockexpression = _xtrycatchfinallyexpression;
+      }
+      return _xblockexpression;
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
+  @Get("/mediaEncuestaAsc/:registros/:desde/:hasta")
+  public Result mediaEncuestaAsc(final String registros, final String desde, final String hasta, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
+    try {
+      Result _xblockexpression = null;
+      {
+        Date fechaDesde = this.sdf.parse(desde);
+        long _time = fechaDesde.getTime();
+        java.sql.Date fechaDesdeParser = new java.sql.Date(_time);
+        Date fechaHasta = this.sdf.parse(desde);
+        long _time_1 = fechaHasta.getTime();
+        java.sql.Date fechaHastaParser = new java.sql.Date(_time_1);
+        QueryEncuesta encuesta = new QueryEncuesta();
+        encuesta.llenar("CALL MEDIA_ENCUESTA_ASC(?, ?, ?)", Integer.parseInt(registros), fechaDesdeParser, fechaHastaParser);
+        Result _xtrycatchfinallyexpression = null;
+        try {
+          _xtrycatchfinallyexpression = ResultFactory.ok(this._jSONUtils.toJson(this.titulos.getListaTitulo()));
+        } catch (final Throwable _t) {
+          if (_t instanceof UserException) {
+            _xtrycatchfinallyexpression = null;
+          } else {
+            throw Exceptions.sneakyThrow(_t);
+          }
+        }
+        _xblockexpression = _xtrycatchfinallyexpression;
+      }
+      return _xblockexpression;
+    } catch (Throwable _e) {
+      throw Exceptions.sneakyThrow(_e);
+    }
+  }
+  
   public void handle(final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) throws IOException, ServletException {
     {
     	Matcher matcher = 
@@ -361,6 +490,94 @@ public class InfoMultimediaController extends ResultFactory {
             response.setContentType("application/json");
     		
     	    Result result = velEdadMediaDesc(registros, target, baseRequest, request, response);
+    	    result.process(response);
+    	    
+    		response.addHeader("Access-Control-Allow-Origin", "*");
+    	    baseRequest.setHandled(true);
+    	    return;
+    	}
+    }
+    {
+    	Matcher matcher = 
+    		Pattern.compile("/mediaPuntajeAsc/(\\w+)/(\\w+)/(\\w+)").matcher(target);
+    	if (request.getMethod().equalsIgnoreCase("Get") && matcher.matches()) {
+    		// take parameters from request
+    		
+    		// take variables from url
+    		String registros = matcher.group(1);
+    		String desde = matcher.group(2);
+    		String hasta = matcher.group(3);
+    		
+            // set default content type (it can be overridden during next call)
+            response.setContentType("application/json");
+    		
+    	    Result result = mediaPuntajeAsc(registros, desde, hasta, target, baseRequest, request, response);
+    	    result.process(response);
+    	    
+    		response.addHeader("Access-Control-Allow-Origin", "*");
+    	    baseRequest.setHandled(true);
+    	    return;
+    	}
+    }
+    {
+    	Matcher matcher = 
+    		Pattern.compile("/mediaPuntajeDesc/(\\w+)/(\\w+)/(\\w+)").matcher(target);
+    	if (request.getMethod().equalsIgnoreCase("Get") && matcher.matches()) {
+    		// take parameters from request
+    		
+    		// take variables from url
+    		String registros = matcher.group(1);
+    		String desde = matcher.group(2);
+    		String hasta = matcher.group(3);
+    		
+            // set default content type (it can be overridden during next call)
+            response.setContentType("application/json");
+    		
+    	    Result result = mediaPuntajeDesc(registros, desde, hasta, target, baseRequest, request, response);
+    	    result.process(response);
+    	    
+    		response.addHeader("Access-Control-Allow-Origin", "*");
+    	    baseRequest.setHandled(true);
+    	    return;
+    	}
+    }
+    {
+    	Matcher matcher = 
+    		Pattern.compile("/mediaEncuestaDesc/(\\w+)/(\\w+)/(\\w+)").matcher(target);
+    	if (request.getMethod().equalsIgnoreCase("Get") && matcher.matches()) {
+    		// take parameters from request
+    		
+    		// take variables from url
+    		String registros = matcher.group(1);
+    		String desde = matcher.group(2);
+    		String hasta = matcher.group(3);
+    		
+            // set default content type (it can be overridden during next call)
+            response.setContentType("application/json");
+    		
+    	    Result result = mediaEncuestaDesc(registros, desde, hasta, target, baseRequest, request, response);
+    	    result.process(response);
+    	    
+    		response.addHeader("Access-Control-Allow-Origin", "*");
+    	    baseRequest.setHandled(true);
+    	    return;
+    	}
+    }
+    {
+    	Matcher matcher = 
+    		Pattern.compile("/mediaEncuestaAsc/(\\w+)/(\\w+)/(\\w+)").matcher(target);
+    	if (request.getMethod().equalsIgnoreCase("Get") && matcher.matches()) {
+    		// take parameters from request
+    		
+    		// take variables from url
+    		String registros = matcher.group(1);
+    		String desde = matcher.group(2);
+    		String hasta = matcher.group(3);
+    		
+            // set default content type (it can be overridden during next call)
+            response.setContentType("application/json");
+    		
+    	    Result result = mediaEncuestaAsc(registros, desde, hasta, target, baseRequest, request, response);
     	    result.process(response);
     	    
     		response.addHeader("Access-Control-Allow-Origin", "*");

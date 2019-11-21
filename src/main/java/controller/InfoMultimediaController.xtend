@@ -14,6 +14,9 @@ import conector.QueryContenido
 import conector.QueryCategoria
 import conector.QueryVelocidad
 import conector.QueryTitulos
+import conector.QueryEncuesta
+import java.text.SimpleDateFormat
+import java.util.Date
 
 @Controller
 class InfoMultimediaController {
@@ -23,6 +26,7 @@ class InfoMultimediaController {
 	RepoEncuestas encuestas = RepoEncuestas.getInstance
 	RepoCategorias categorias = RepoCategorias.getInstance
 	RepoTitulos titulos = RepoTitulos.getInstance
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 	@Get('/contenidos')
 	def Result contenido() {
@@ -127,6 +131,83 @@ class InfoMultimediaController {
 		} catch (UserException e) {
 		}
 	}
+	
+	@Get('/mediaPuntajeAsc/:registros/:desde/:hasta')
+	def Result mediaPuntajeAsc() {
+		
+		var fechaDesde = sdf.parse(desde);
+		var fechaDesdeParser = new java.sql.Date(fechaDesde.getTime())
+		var fechaHasta = sdf.parse(desde);
+		var fechaHastaParser = new java.sql.Date(fechaHasta.getTime())
+		 
+		var encuesta = new QueryEncuesta
+		
+		encuesta.llenar("CALL MEDIA_PUNTAJE_ASC(?, ?, ?)",Integer.parseInt(registros),fechaDesdeParser,fechaHastaParser)
+
+		try {
+
+			ok((titulos.listaTitulo).toJson)
+		} catch (UserException e) {
+		}
+	}
+	
+	@Get('/mediaPuntajeDesc/:registros/:desde/:hasta')
+	def Result mediaPuntajeDesc() {
+		
+		var fechaDesde = sdf.parse(desde);
+		var fechaDesdeParser = new java.sql.Date(fechaDesde.getTime())
+		var fechaHasta = sdf.parse(desde);
+		var fechaHastaParser = new java.sql.Date(fechaHasta.getTime())
+		 
+		var encuesta = new QueryEncuesta
+		
+		encuesta.llenar("CALL MEDIA_PUNTAJE_DESC(?, ?, ?)",Integer.parseInt(registros),fechaDesdeParser,fechaHastaParser)
+
+		try {
+
+			ok((titulos.listaTitulo).toJson)
+		} catch (UserException e) {
+		}
+	}
+	
+	@Get('/mediaEncuestaDesc/:registros/:desde/:hasta')
+	def Result mediaEncuestaDesc() {
+		
+		var fechaDesde = sdf.parse(desde);
+		var fechaDesdeParser = new java.sql.Date(fechaDesde.getTime())
+		var fechaHasta = sdf.parse(desde);
+		var fechaHastaParser = new java.sql.Date(fechaHasta.getTime())
+		 
+		var encuesta = new QueryEncuesta
+		
+		encuesta.llenar("CALL MEDIA_ENCUESTA_DESC(?, ?, ?)",Integer.parseInt(registros),fechaDesdeParser,fechaHastaParser)
+
+		try {
+
+			ok((titulos.listaTitulo).toJson)
+		} catch (UserException e) {
+		}
+	}
+	
+	@Get('/mediaEncuestaAsc/:registros/:desde/:hasta')
+	def Result mediaEncuestaAsc() {
+		
+		var fechaDesde = sdf.parse(desde);
+		var fechaDesdeParser = new java.sql.Date(fechaDesde.getTime())
+		var fechaHasta = sdf.parse(desde);
+		var fechaHastaParser = new java.sql.Date(fechaHasta.getTime())
+		 
+		var encuesta = new QueryEncuesta
+		
+		encuesta.llenar("CALL MEDIA_ENCUESTA_ASC(?, ?, ?)",Integer.parseInt(registros),fechaDesdeParser,fechaHastaParser)
+
+		try {
+
+			ok((titulos.listaTitulo).toJson)
+		} catch (UserException e) {
+		}
+	}
+	
 	
 
 }
