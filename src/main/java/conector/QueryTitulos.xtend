@@ -23,10 +23,9 @@ class QueryTitulos {
 		
 		titulos.vaciar
 		try {
-			var Connection unaConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root",
-				"mydogpupy170312")
+			var Connection unaConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "150696")
 			var PreparedStatement unStatement = unaConexion.prepareStatement(query)
-			unStatement.setInt(1, registros)
+			unStatement.setInt(1,registros)
 			var ResultSet unResultSet = unStatement.executeQuery()
 			while (unResultSet.next()) {
 				var String idContenido = unResultSet.getString("idContenido")

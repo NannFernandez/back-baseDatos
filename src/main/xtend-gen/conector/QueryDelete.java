@@ -6,11 +6,10 @@ import java.sql.PreparedStatement;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 
 @SuppressWarnings("all")
-public class QueryDeleteJava {
+public class QueryDelete {
   public void borrar(final String id) {
     try {
-      Connection miConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", 
-        "mydogpupy170312");
+      Connection miConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "150696");
       PreparedStatement sentenciaSQL = miConexion.prepareStatement("CALL ELIMINAR_CONTENIDO(?)");
       sentenciaSQL.setInt(1, Integer.parseInt(id));
       sentenciaSQL.executeQuery();

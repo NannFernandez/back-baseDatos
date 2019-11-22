@@ -18,13 +18,13 @@ public class QueryCategoria {
   public void llenar() {
     this.categorias.vaciar();
     try {
-      Connection unaConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "1234");
+      Connection unaConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "150696");
       Statement unStatement = unaConexion.createStatement();
       ResultSet unResultSet = unStatement.executeQuery("SELECT * FROM CATEGORIA");
       while (unResultSet.next()) {
         {
           String idCategoria = unResultSet.getString("idCategoria");
-          String descCategoria = unResultSet.getString("descCategoria");
+          String descCategoria = unResultSet.getString("categoriaDesc");
           Categoria categoria = new Categoria(idCategoria, descCategoria);
           this.categorias.create(categoria);
         }

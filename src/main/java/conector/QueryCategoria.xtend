@@ -15,7 +15,7 @@ class QueryCategoria {
 		categorias.vaciar
 		try {
 			// Creamos conexion
-			var Connection unaConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "1234")
+			var Connection unaConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "150696")
 			// Creamos objeto statement
 			var Statement unStatement = unaConexion.createStatement()
 			// Ejecutar instrucciones SQL
@@ -24,7 +24,7 @@ class QueryCategoria {
 			while (unResultSet.next()) {
 				// mientras exista un proximo registro
 				var String idCategoria = unResultSet.getString("idCategoria")
-				var String descCategoria = unResultSet.getString("descCategoria")
+				var String descCategoria = unResultSet.getString("categoriaDesc")
 				
 				var categoria= new Categoria (idCategoria,descCategoria)
 				categorias.create(categoria)

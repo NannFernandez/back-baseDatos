@@ -2,9 +2,13 @@ package controller;
 
 import conector.QueryCategoria;
 import conector.QueryContenido;
+import conector.QueryDelete;
 import conector.QueryEncuesta;
+import conector.QueryInsert;
 import conector.QueryTitulos;
+import conector.QueryUpdate;
 import conector.QueryVelocidad;
+import dominio.Contenido;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,8 +22,11 @@ import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.omg.CORBA.UserException;
 import org.uqbar.xtrest.api.Result;
+import org.uqbar.xtrest.api.annotation.Body;
 import org.uqbar.xtrest.api.annotation.Controller;
 import org.uqbar.xtrest.api.annotation.Get;
+import org.uqbar.xtrest.api.annotation.Put;
+import org.uqbar.xtrest.http.ContentType;
 import org.uqbar.xtrest.json.JSONUtils;
 import org.uqbar.xtrest.result.ResultFactory;
 import repos.RepoCategorias;
@@ -88,6 +95,83 @@ public class InfoMultimediaController extends ResultFactory {
     return _xblockexpression;
   }
   
+  @Put("/contenidos/borrar/:id")
+  public Result borrar(final String id, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
+    Result _xblockexpression = null;
+    {
+      QueryDelete delete = new QueryDelete();
+      Result _xtrycatchfinallyexpression = null;
+      try {
+        delete.borrar(id);
+      } catch (final Throwable _t) {
+        if (_t instanceof Exception) {
+          final Exception e = (Exception)_t;
+          _xtrycatchfinallyexpression = ResultFactory.badRequest(e.getMessage());
+        } else {
+          throw Exceptions.sneakyThrow(_t);
+        }
+      }
+      _xblockexpression = _xtrycatchfinallyexpression;
+    }
+    return _xblockexpression;
+  }
+  
+  @Put("/contenidos/agregar")
+  public Result agregar(@Body final String body, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
+    Result _xblockexpression = null;
+    {
+      response.setContentType(ContentType.APPLICATION_JSON);
+      QueryInsert agregar = new QueryInsert();
+      Result _xtrycatchfinallyexpression = null;
+      try {
+        Result _xblockexpression_1 = null;
+        {
+          final Contenido actualizado = this._jSONUtils.<Contenido>fromJson(body, Contenido.class);
+          agregar.insert(actualizado);
+          _xblockexpression_1 = ResultFactory.ok("{ \"status\" : \"OK\" }");
+        }
+        _xtrycatchfinallyexpression = _xblockexpression_1;
+      } catch (final Throwable _t) {
+        if (_t instanceof Exception) {
+          final Exception e = (Exception)_t;
+          _xtrycatchfinallyexpression = ResultFactory.badRequest(e.getMessage());
+        } else {
+          throw Exceptions.sneakyThrow(_t);
+        }
+      }
+      _xblockexpression = _xtrycatchfinallyexpression;
+    }
+    return _xblockexpression;
+  }
+  
+  @Put("/contenidos/modificar")
+  public Result modificar(@Body final String body, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
+    Result _xblockexpression = null;
+    {
+      response.setContentType(ContentType.APPLICATION_JSON);
+      QueryUpdate update = new QueryUpdate();
+      Result _xtrycatchfinallyexpression = null;
+      try {
+        Result _xblockexpression_1 = null;
+        {
+          final Contenido actualizado = this._jSONUtils.<Contenido>fromJson(body, Contenido.class);
+          update.modificar(actualizado);
+          _xblockexpression_1 = ResultFactory.ok("{ \"status\" : \"OK\" }");
+        }
+        _xtrycatchfinallyexpression = _xblockexpression_1;
+      } catch (final Throwable _t) {
+        if (_t instanceof Exception) {
+          final Exception e = (Exception)_t;
+          _xtrycatchfinallyexpression = ResultFactory.badRequest(e.getMessage());
+        } else {
+          throw Exceptions.sneakyThrow(_t);
+        }
+      }
+      _xblockexpression = _xtrycatchfinallyexpression;
+    }
+    return _xblockexpression;
+  }
+  
   @Get("/velTransfAsc/:registros")
   public Result velTransfAsc(final String registros, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
     Result _xblockexpression = null;
@@ -109,7 +193,7 @@ public class InfoMultimediaController extends ResultFactory {
     return _xblockexpression;
   }
   
-  @Get("/velTransfAsc/:registros")
+  @Get("/velTransfDesc/:registros")
   public Result velTransfDesc(final String registros, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
     Result _xblockexpression = null;
     {
@@ -130,8 +214,8 @@ public class InfoMultimediaController extends ResultFactory {
     return _xblockexpression;
   }
   
-  @Get("/velTransfMediaDesc/:registros")
-  public Result velTransfMediaDesc(final String registros, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
+  @Get("/velTransfMediaAsc/:registros")
+  public Result velTransfMediaAsc(final String registros, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
     Result _xblockexpression = null;
     {
       QueryTitulos titulo = new QueryTitulos();
@@ -151,8 +235,8 @@ public class InfoMultimediaController extends ResultFactory {
     return _xblockexpression;
   }
   
-  @Get("/velTransfMediaAsc/:registros")
-  public Result velTransfMediaAsc(final String registros, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
+  @Get("/velTransfMediaDesc/:registros")
+  public Result velTransfMediaDesc(final String registros, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
     Result _xblockexpression = null;
     {
       QueryTitulos titulo = new QueryTitulos();
@@ -379,6 +463,46 @@ public class InfoMultimediaController extends ResultFactory {
     }
     {
     	Matcher matcher = 
+    		Pattern.compile("/contenidos/agregar").matcher(target);
+    	if (request.getMethod().equalsIgnoreCase("Put") && matcher.matches()) {
+    		// take parameters from request
+    		String body = readBodyAsString(request);
+    		
+    		// take variables from url
+    		
+            // set default content type (it can be overridden during next call)
+            response.setContentType("application/json");
+    		
+    	    Result result = agregar(body, target, baseRequest, request, response);
+    	    result.process(response);
+    	    
+    		response.addHeader("Access-Control-Allow-Origin", "*");
+    	    baseRequest.setHandled(true);
+    	    return;
+    	}
+    }
+    {
+    	Matcher matcher = 
+    		Pattern.compile("/contenidos/modificar").matcher(target);
+    	if (request.getMethod().equalsIgnoreCase("Put") && matcher.matches()) {
+    		// take parameters from request
+    		String body = readBodyAsString(request);
+    		
+    		// take variables from url
+    		
+            // set default content type (it can be overridden during next call)
+            response.setContentType("application/json");
+    		
+    	    Result result = modificar(body, target, baseRequest, request, response);
+    	    result.process(response);
+    	    
+    		response.addHeader("Access-Control-Allow-Origin", "*");
+    	    baseRequest.setHandled(true);
+    	    return;
+    	}
+    }
+    {
+    	Matcher matcher = 
     		Pattern.compile("/velTransfAsc/(\\w+)").matcher(target);
     	if (request.getMethod().equalsIgnoreCase("Get") && matcher.matches()) {
     		// take parameters from request
@@ -399,7 +523,7 @@ public class InfoMultimediaController extends ResultFactory {
     }
     {
     	Matcher matcher = 
-    		Pattern.compile("/velTransfAsc/(\\w+)").matcher(target);
+    		Pattern.compile("/velTransfDesc/(\\w+)").matcher(target);
     	if (request.getMethod().equalsIgnoreCase("Get") && matcher.matches()) {
     		// take parameters from request
     		
@@ -410,26 +534,6 @@ public class InfoMultimediaController extends ResultFactory {
             response.setContentType("application/json");
     		
     	    Result result = velTransfDesc(registros, target, baseRequest, request, response);
-    	    result.process(response);
-    	    
-    		response.addHeader("Access-Control-Allow-Origin", "*");
-    	    baseRequest.setHandled(true);
-    	    return;
-    	}
-    }
-    {
-    	Matcher matcher = 
-    		Pattern.compile("/velTransfMediaDesc/(\\w+)").matcher(target);
-    	if (request.getMethod().equalsIgnoreCase("Get") && matcher.matches()) {
-    		// take parameters from request
-    		
-    		// take variables from url
-    		String registros = matcher.group(1);
-    		
-            // set default content type (it can be overridden during next call)
-            response.setContentType("application/json");
-    		
-    	    Result result = velTransfMediaDesc(registros, target, baseRequest, request, response);
     	    result.process(response);
     	    
     		response.addHeader("Access-Control-Allow-Origin", "*");
@@ -450,6 +554,26 @@ public class InfoMultimediaController extends ResultFactory {
             response.setContentType("application/json");
     		
     	    Result result = velTransfMediaAsc(registros, target, baseRequest, request, response);
+    	    result.process(response);
+    	    
+    		response.addHeader("Access-Control-Allow-Origin", "*");
+    	    baseRequest.setHandled(true);
+    	    return;
+    	}
+    }
+    {
+    	Matcher matcher = 
+    		Pattern.compile("/velTransfMediaDesc/(\\w+)").matcher(target);
+    	if (request.getMethod().equalsIgnoreCase("Get") && matcher.matches()) {
+    		// take parameters from request
+    		
+    		// take variables from url
+    		String registros = matcher.group(1);
+    		
+            // set default content type (it can be overridden during next call)
+            response.setContentType("application/json");
+    		
+    	    Result result = velTransfMediaDesc(registros, target, baseRequest, request, response);
     	    result.process(response);
     	    
     		response.addHeader("Access-Control-Allow-Origin", "*");
@@ -490,6 +614,26 @@ public class InfoMultimediaController extends ResultFactory {
             response.setContentType("application/json");
     		
     	    Result result = velEdadMediaDesc(registros, target, baseRequest, request, response);
+    	    result.process(response);
+    	    
+    		response.addHeader("Access-Control-Allow-Origin", "*");
+    	    baseRequest.setHandled(true);
+    	    return;
+    	}
+    }
+    {
+    	Matcher matcher = 
+    		Pattern.compile("/contenidos/borrar/(\\w+)").matcher(target);
+    	if (request.getMethod().equalsIgnoreCase("Put") && matcher.matches()) {
+    		// take parameters from request
+    		
+    		// take variables from url
+    		String id = matcher.group(1);
+    		
+            // set default content type (it can be overridden during next call)
+            response.setContentType("application/json");
+    		
+    	    Result result = borrar(id, target, baseRequest, request, response);
     	    result.process(response);
     	    
     		response.addHeader("Access-Control-Allow-Origin", "*");

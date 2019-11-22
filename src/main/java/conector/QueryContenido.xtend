@@ -15,7 +15,7 @@ class QueryContenido {
 		
 		try {
 			// Creamos conexion
-			var Connection unaConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "1234")
+			var Connection unaConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "150696")
 			// Creamos objeto statement
 			var Statement unStatement = unaConexion.createStatement()
 			// Ejecutar instrucciones SQL

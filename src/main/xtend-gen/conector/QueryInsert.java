@@ -7,11 +7,10 @@ import java.sql.PreparedStatement;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 
 @SuppressWarnings("all")
-public class QueryInsertJava {
+public class QueryInsert {
   public void insert(final Contenido contenido) {
     try {
-      Connection miConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", 
-        "mydogpupy170312");
+      Connection miConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "150696");
       PreparedStatement sentenciaSQL = miConexion.prepareStatement("CALL AGREGAR_CONTENIDO(?, ?, ?, ?, ?)");
       sentenciaSQL.setInt(1, Integer.parseInt(contenido.getIdContenido()));
       sentenciaSQL.setString(2, contenido.getTitulo());
