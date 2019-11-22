@@ -19,6 +19,7 @@ public class QueryVelocidad {
   private RepoVelocidad velocidades = RepoVelocidad.getInstance();
   
   public void llenar(final String query, final int registros) {
+    this.velocidades.vaciar();
     try {
       Connection unaConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "150696");
       PreparedStatement unStatement = unaConexion.prepareStatement(query);

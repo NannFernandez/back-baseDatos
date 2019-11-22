@@ -16,8 +16,10 @@ import org.eclipse.xtend.lib.annotations.Accessors
 class QueryVelocidad {
 	
 	RepoVelocidad velocidades=	RepoVelocidad.getInstance
-
-	def void llenar(String query, int registros) {
+    
+	
+	def llenar(String query, int registros) {
+		velocidades.vaciar
 		try {
 			var Connection unaConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "150696")
 			var PreparedStatement unStatement = unaConexion.prepareStatement(query)

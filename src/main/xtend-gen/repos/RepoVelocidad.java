@@ -29,6 +29,10 @@ public class RepoVelocidad {
     return this.listaVelocidad.add(velocidad);
   }
   
+  public List<VelocidadTransf> vaciar() {
+    return this.listaVelocidad = CollectionLiterals.<VelocidadTransf>newArrayList();
+  }
+  
   @Pure
   public List<VelocidadTransf> getListaVelocidad() {
     return this.listaVelocidad;

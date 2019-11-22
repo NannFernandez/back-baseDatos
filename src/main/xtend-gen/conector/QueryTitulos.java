@@ -24,10 +24,10 @@ public class QueryTitulos {
       ResultSet unResultSet = unStatement.executeQuery();
       while (unResultSet.next()) {
         {
-          String idContenido = unResultSet.getString("idContenido");
-          String tituloContenido = unResultSet.getString("titulo");
-          String edad = unResultSet.getString("edad_Media");
-          String transf = unResultSet.getString("transf_Media");
+          String idContenido = unResultSet.getString("IDCONTENIDO");
+          String tituloContenido = unResultSet.getString("TITULO");
+          String edad = unResultSet.getString("EDAD_MEDIA");
+          String transf = unResultSet.getString("TRANSF_MEDIA");
           Titulo titulo = new Titulo(idContenido, tituloContenido, edad, transf);
           this.titulos.create(titulo);
         }

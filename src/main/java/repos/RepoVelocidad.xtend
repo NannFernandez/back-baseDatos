@@ -22,5 +22,9 @@ class RepoVelocidad {
 
 	}
 	
+	def vaciar() {
+		listaVelocidad = newArrayList
+	}
+	
 	
 }

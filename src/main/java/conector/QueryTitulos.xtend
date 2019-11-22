@@ -19,7 +19,7 @@ class QueryTitulos {
 	// String queryMediaEdadeAsc = "CALL EDAD_TRANSF_MEDIA_ASC_POR_EDAD(?)";
 	// String queryMediaEdadDesc = "CALL EDAD_TRANSF_MEDIA_DESC_POR_EDAD(?)";
 	
-	def void llenar(String query, int registros) {
+	def llenar(String query, int registros) {
 		
 		titulos.vaciar
 		try {
@@ -28,10 +28,12 @@ class QueryTitulos {
 			unStatement.setInt(1,registros)
 			var ResultSet unResultSet = unStatement.executeQuery()
 			while (unResultSet.next()) {
-				var String idContenido = unResultSet.getString("idContenido")
-				var String tituloContenido = unResultSet.getString("titulo")
-				var String edad = unResultSet.getString("edad_Media")
-				var String transf = unResultSet.getString("transf_Media")
+				
+				var String idContenido = unResultSet.getString("IDCONTENIDO")
+				var String tituloContenido = unResultSet.getString("TITULO")
+				var String edad = unResultSet.getString("EDAD_MEDIA")
+				var String transf = unResultSet.getString("TRANSF_MEDIA")
+				//var titulo= new Titulo (idContenido,tituloContenido,edad,transf)
 				var titulo= new Titulo (idContenido,tituloContenido,edad,transf)
 				titulos.create(titulo)
 								

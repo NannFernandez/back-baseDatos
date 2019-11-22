@@ -47,6 +47,19 @@ class InfoMultimediaController {
 		} catch (UserException e) {
 		}
 	}
+	
+	@Get('/contenidos/:id')
+	def Result contenido() {
+
+		var contenido = new QueryContenido
+		contenido.llenar
+
+		try {
+
+			ok((contenidos.buscar(id)).toJson)
+		} catch (UserException e) {
+		}
+	}
 
 	@Get('/categoria')
 	def Result categoria() {
@@ -61,6 +74,8 @@ class InfoMultimediaController {
 		}
 	}
 
+    
+	
 	@Put("/contenidos/borrar/:id") // polemico , ver mejor 
 	def borrar() {
 		var delete = new QueryDelete
@@ -132,11 +147,13 @@ class InfoMultimediaController {
 	}
 
 	@Get('/velTransfMediaAsc/:registros')
-	/*no recibe registros*/ def Result velTransfMediaAsc() {
+	def Result velTransfMediaAsc() {
 
 		var titulo = new QueryTitulos
+		
 		titulo.llenar("CALL EDAD_TRANSF_MEDIA_ASC_POR_TRANSF(?)", Integer.parseInt(registros))
-
+		
+		
 		try {
 
 			ok((titulos.listaTitulo).toJson)
@@ -145,7 +162,7 @@ class InfoMultimediaController {
 	}
 
 	@Get('/velTransfMediaDesc/:registros')
-	/*no recibe registros*/ def Result velTransfMediaDesc() {
+	def Result velTransfMediaDesc() {
 
 		var titulo = new QueryTitulos
 		titulo.llenar("CALL EDAD_TRANSF_MEDIA_DESC_POR_TRANSF(?)", Integer.parseInt(registros))
@@ -158,7 +175,7 @@ class InfoMultimediaController {
 	}
 
 	@Get('/velEdadMediaAsc/:registros')
-	/*no recibe registros*/ def Result velEdadMediaAsc() {
+	def Result velEdadMediaAsc() {
 
 		var titulo = new QueryTitulos
 		titulo.llenar("CALL EDAD_TRANSF_MEDIA_ASC_POR_EDAD(?)", Integer.parseInt(registros))
@@ -171,7 +188,7 @@ class InfoMultimediaController {
 	}
 
 	@Get('/velEdadMediaDesc/:registros')
-	/*no recibe registros*/ def Result velEdadMediaDesc() {
+	def Result velEdadMediaDesc() {
 
 		var titulo = new QueryTitulos
 		titulo.llenar("CALL EDAD_TRANSF_MEDIA_DESC_POR_EDAD(?)", Integer.parseInt(registros))

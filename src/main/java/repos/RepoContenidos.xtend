@@ -26,4 +26,10 @@ class RepoContenidos {
 		listaContenidos = newArrayList
 	}
 	
+	def buscar(String id) {
+		
+		listaContenidos.findFirst[elemento|elemento.idContenido == id]
+	
+	}
+	
 }

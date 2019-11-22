@@ -1,9 +1,12 @@
 package repos;
 
+import com.google.common.base.Objects;
 import dominio.Contenido;
 import java.util.List;
 import org.eclipse.xtend.lib.annotations.Accessors;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
+import org.eclipse.xtext.xbase.lib.Functions.Function1;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Pure;
 
 @Accessors
@@ -31,6 +34,14 @@ public class RepoContenidos {
   
   public List<Contenido> vaciar() {
     return this.listaContenidos = CollectionLiterals.<Contenido>newArrayList();
+  }
+  
+  public Contenido buscar(final String id) {
+    final Function1<Contenido, Boolean> _function = (Contenido elemento) -> {
+      String _idContenido = elemento.getIdContenido();
+      return Boolean.valueOf(Objects.equal(_idContenido, id));
+    };
+    return IterableExtensions.<Contenido>findFirst(this.listaContenidos, _function);
   }
   
   @Pure
