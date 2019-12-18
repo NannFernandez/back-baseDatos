@@ -215,7 +215,7 @@ class InfoMultimediaController {
 
 		try {
 
-			ok((titulos.listaTitulo).toJson)
+			ok((encuestas.listaEncuestas).toJson)
 		} catch (UserException e) {
 		}
 	}
@@ -264,9 +264,9 @@ class InfoMultimediaController {
 	def Result mediaEncuestaAsc() {
 
 		var fechaDesde = sdf.parse(desde);
-		var fechaDesdeParser = new java.sql.Date(fechaDesde.getTime())
-		var fechaHasta = sdf.parse(desde);
-		var fechaHastaParser = new java.sql.Date(fechaHasta.getTime())
+		var fechaDesdeParser = java.sql.Date.valueOf("1990-09-04")
+		var fechaHasta = sdf.parse(hasta);
+		var fechaHastaParser = java.sql.Date.valueOf("2019-09-04")
 
 		var encuesta = new QueryEncuesta
 

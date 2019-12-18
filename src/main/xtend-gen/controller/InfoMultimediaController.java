@@ -334,7 +334,7 @@ public class InfoMultimediaController extends ResultFactory {
         encuesta.llenar("CALL MEDIA_PUNTAJE_ASC(?, ?, ?)", Integer.parseInt(registros), fechaDesdeParser, fechaHastaParser);
         Result _xtrycatchfinallyexpression = null;
         try {
-          _xtrycatchfinallyexpression = ResultFactory.ok(this._jSONUtils.toJson(this.titulos.getListaTitulo()));
+          _xtrycatchfinallyexpression = ResultFactory.ok(this._jSONUtils.toJson(this.encuestas.getListaEncuestas()));
         } catch (final Throwable _t) {
           if (_t instanceof UserException) {
             _xtrycatchfinallyexpression = null;
@@ -418,11 +418,9 @@ public class InfoMultimediaController extends ResultFactory {
       Result _xblockexpression = null;
       {
         Date fechaDesde = this.sdf.parse(desde);
-        long _time = fechaDesde.getTime();
-        java.sql.Date fechaDesdeParser = new java.sql.Date(_time);
-        Date fechaHasta = this.sdf.parse(desde);
-        long _time_1 = fechaHasta.getTime();
-        java.sql.Date fechaHastaParser = new java.sql.Date(_time_1);
+        java.sql.Date fechaDesdeParser = java.sql.Date.valueOf("1990-09-04");
+        Date fechaHasta = this.sdf.parse(hasta);
+        java.sql.Date fechaHastaParser = java.sql.Date.valueOf("2019-09-04");
         QueryEncuesta encuesta = new QueryEncuesta();
         encuesta.llenar("CALL MEDIA_ENCUESTA_ASC(?, ?, ?)", Integer.parseInt(registros), fechaDesdeParser, fechaHastaParser);
         Result _xtrycatchfinallyexpression = null;

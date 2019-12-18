@@ -6,6 +6,7 @@ import dominio.Contenido
 
 class QueryInsert {
 	def insert(Contenido contenido) {
+	
 		try {
 			var Connection miConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "150696")
 			var PreparedStatement sentenciaSQL = miConexion.prepareStatement("CALL AGREGAR_CONTENIDO(?, ?, ?, ?, ?)")
