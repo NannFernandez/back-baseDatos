@@ -21,7 +21,7 @@ class QueryPerteneceCategoria {
   def agregarRelacion(String idContenido ,String idCategoria) {
 		try {
 			var Connection miConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root",
-				"mydogpupy170312")
+				"150696")
 				var PreparedStatement sentenciaSQL = miConexion.prepareStatement("CALL AGREGAR_CONTENIDO_PERTENECE_CATEGORIA(?, ?)")
 			    sentenciaSQL.setInt(1, Integer.parseInt(idContenido))
          	    sentenciaSQL.setInt(2, Integer.parseInt(idCategoria))

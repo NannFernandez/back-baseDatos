@@ -22,11 +22,10 @@ import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Extension;
 import org.omg.CORBA.UserException;
 import org.uqbar.xtrest.api.Result;
-import org.uqbar.xtrest.api.annotation.Body;
 import org.uqbar.xtrest.api.annotation.Controller;
 import org.uqbar.xtrest.api.annotation.Get;
+import org.uqbar.xtrest.api.annotation.Post;
 import org.uqbar.xtrest.api.annotation.Put;
-import org.uqbar.xtrest.http.ContentType;
 import org.uqbar.xtrest.json.JSONUtils;
 import org.uqbar.xtrest.result.ResultFactory;
 import repos.RepoCategorias;
@@ -137,17 +136,21 @@ public class InfoMultimediaController extends ResultFactory {
     return _xblockexpression;
   }
   
-  @Put("/contenidos/agregar")
-  public Result agregar(@Body final String body, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
+  @Post("/contenidos/agregar/:titulo/:ext")
+  public Result agregar(final String titulo, final String ext, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
     Result _xblockexpression = null;
     {
-      response.setContentType(ContentType.APPLICATION_JSON);
       QueryInsert agregar = new QueryInsert();
       Result _xtrycatchfinallyexpression = null;
       try {
         Result _xblockexpression_1 = null;
         {
-          final Contenido actualizado = this._jSONUtils.<Contenido>fromJson(body, Contenido.class);
+          double _random = Math.random();
+          double _multiply = (_random * 200);
+          double _plus = (_multiply + 1);
+          double _floor = Math.floor(_plus);
+          String _string = Integer.valueOf(((int) _floor)).toString();
+          final Contenido actualizado = new Contenido(_string, titulo, "2019-12-18", ext);
           agregar.insert(actualizado);
           _xblockexpression_1 = ResultFactory.ok("{ \"status\" : \"OK\" }");
         }
@@ -165,17 +168,16 @@ public class InfoMultimediaController extends ResultFactory {
     return _xblockexpression;
   }
   
-  @Put("/contenidos/modificar")
-  public Result modificar(@Body final String body, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
+  @Put("/contenidos/modificar/:titulo/:ext/:id")
+  public Result modificar(final String titulo, final String ext, final String id, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
     Result _xblockexpression = null;
     {
-      response.setContentType(ContentType.APPLICATION_JSON);
       QueryUpdate update = new QueryUpdate();
       Result _xtrycatchfinallyexpression = null;
       try {
         Result _xblockexpression_1 = null;
         {
-          final Contenido actualizado = this._jSONUtils.<Contenido>fromJson(body, Contenido.class);
+          final Contenido actualizado = new Contenido(id, titulo, "2019-12-18", ext);
           update.modificar(actualizado);
           _xblockexpression_1 = ResultFactory.ok("{ \"status\" : \"OK\" }");
         }
@@ -482,46 +484,6 @@ public class InfoMultimediaController extends ResultFactory {
     }
     {
     	Matcher matcher = 
-    		Pattern.compile("/contenidos/agregar").matcher(target);
-    	if (request.getMethod().equalsIgnoreCase("Put") && matcher.matches()) {
-    		// take parameters from request
-    		String body = readBodyAsString(request);
-    		
-    		// take variables from url
-    		
-            // set default content type (it can be overridden during next call)
-            response.setContentType("application/json");
-    		
-    	    Result result = agregar(body, target, baseRequest, request, response);
-    	    result.process(response);
-    	    
-    		response.addHeader("Access-Control-Allow-Origin", "*");
-    	    baseRequest.setHandled(true);
-    	    return;
-    	}
-    }
-    {
-    	Matcher matcher = 
-    		Pattern.compile("/contenidos/modificar").matcher(target);
-    	if (request.getMethod().equalsIgnoreCase("Put") && matcher.matches()) {
-    		// take parameters from request
-    		String body = readBodyAsString(request);
-    		
-    		// take variables from url
-    		
-            // set default content type (it can be overridden during next call)
-            response.setContentType("application/json");
-    		
-    	    Result result = modificar(body, target, baseRequest, request, response);
-    	    result.process(response);
-    	    
-    		response.addHeader("Access-Control-Allow-Origin", "*");
-    	    baseRequest.setHandled(true);
-    	    return;
-    	}
-    }
-    {
-    	Matcher matcher = 
     		Pattern.compile("/contenidos/(\\w+)").matcher(target);
     	if (request.getMethod().equalsIgnoreCase("Get") && matcher.matches()) {
     		// take parameters from request
@@ -682,6 +644,27 @@ public class InfoMultimediaController extends ResultFactory {
     }
     {
     	Matcher matcher = 
+    		Pattern.compile("/contenidos/agregar/(\\w+)/(\\w+)").matcher(target);
+    	if (request.getMethod().equalsIgnoreCase("Post") && matcher.matches()) {
+    		// take parameters from request
+    		
+    		// take variables from url
+    		String titulo = matcher.group(1);
+    		String ext = matcher.group(2);
+    		
+            // set default content type (it can be overridden during next call)
+            response.setContentType("application/json");
+    		
+    	    Result result = agregar(titulo, ext, target, baseRequest, request, response);
+    	    result.process(response);
+    	    
+    		response.addHeader("Access-Control-Allow-Origin", "*");
+    	    baseRequest.setHandled(true);
+    	    return;
+    	}
+    }
+    {
+    	Matcher matcher = 
     		Pattern.compile("/mediaPuntajeAsc/(\\w+)/(\\w+)/(\\w+)").matcher(target);
     	if (request.getMethod().equalsIgnoreCase("Get") && matcher.matches()) {
     		// take parameters from request
@@ -761,6 +744,28 @@ public class InfoMultimediaController extends ResultFactory {
             response.setContentType("application/json");
     		
     	    Result result = mediaEncuestaAsc(registros, desde, hasta, target, baseRequest, request, response);
+    	    result.process(response);
+    	    
+    		response.addHeader("Access-Control-Allow-Origin", "*");
+    	    baseRequest.setHandled(true);
+    	    return;
+    	}
+    }
+    {
+    	Matcher matcher = 
+    		Pattern.compile("/contenidos/modificar/(\\w+)/(\\w+)/(\\w+)").matcher(target);
+    	if (request.getMethod().equalsIgnoreCase("Put") && matcher.matches()) {
+    		// take parameters from request
+    		
+    		// take variables from url
+    		String titulo = matcher.group(1);
+    		String ext = matcher.group(2);
+    		String id = matcher.group(3);
+    		
+            // set default content type (it can be overridden during next call)
+            response.setContentType("application/json");
+    		
+    	    Result result = modificar(titulo, ext, id, target, baseRequest, request, response);
     	    result.process(response);
     	    
     		response.addHeader("Access-Control-Allow-Origin", "*");

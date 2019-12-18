@@ -24,6 +24,7 @@ import dominio.Contenido
 import conector.QueryDelete
 import conector.QueryInsert
 import conector.QueryUpdate
+import org.uqbar.xtrest.api.annotation.Post
 
 @Controller
 class InfoMultimediaController {
@@ -88,29 +89,28 @@ class InfoMultimediaController {
 
 	}
 	
-	@Put("/contenidos/agregar") // polemico , ver mejor 
-	/*Falta Probarlo */ def agregar(@Body String body) {
-		response.contentType = ContentType.APPLICATION_JSON
+	@Post("/contenidos/agregar/:titulo/:ext") // polemico , ver mejor 
+	/*Falta Probarlo */ def agregar() {
+		
 		var agregar = new QueryInsert
 
 		try {
-			val actualizado = body.fromJson(Contenido)
+			val actualizado = new Contenido( (Math.floor(Math.random()*200+1) as int).toString ,titulo,"2019-12-18",ext)
 			agregar.insert(actualizado)
-
-			ok('{ "status" : "OK" }');
+            ok('{ "status" : "OK" }');
 		} catch (Exception e) {
 			badRequest(e.message)
 		}
 
 	}
 
-	@Put("/contenidos/modificar") 
-	/*Falta Probarlo */def modificar(@Body String body) {
-		response.contentType = ContentType.APPLICATION_JSON
+	@Put("/contenidos/modificar/:titulo/:ext/:id") 
+	/*Falta Probarlo */def modificar() {
+		
 		var update = new QueryUpdate
 
 		try {
-			val actualizado = body.fromJson(Contenido)
+			val actualizado = new Contenido (id ,titulo,"2019-12-18",ext)
 			update.modificar(actualizado)
 			ok('{ "status" : "OK" }');
 
