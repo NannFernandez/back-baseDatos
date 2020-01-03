@@ -10,6 +10,10 @@ public class Categoria {
   
   private String descCategoria;
   
+  public Categoria(final String _id) {
+    this.idCategoria = _id;
+  }
+  
   public Categoria(final String _id, final String _desc) {
     this.idCategoria = _id;
     this.descCategoria = _desc;

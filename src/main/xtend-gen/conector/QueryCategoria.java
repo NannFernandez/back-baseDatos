@@ -18,7 +18,7 @@ public class QueryCategoria {
   public void llenar() {
     this.categorias.vaciar();
     try {
-      Connection unaConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "150696");
+      Connection unaConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "mydogpupy170312");
       Statement unStatement = unaConexion.createStatement();
       ResultSet unResultSet = unStatement.executeQuery("SELECT * FROM CATEGORIA");
       while (unResultSet.next()) {

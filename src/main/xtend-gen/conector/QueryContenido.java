@@ -18,7 +18,7 @@ public class QueryContenido {
   public void llenar() {
     this.contenidos.vaciar();
     try {
-      Connection unaConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "150696");
+      Connection unaConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "mydogpupy170312");
       Statement unStatement = unaConexion.createStatement();
       ResultSet unResultSet = unStatement.executeQuery("CALL MOSTRAR_CONTENIDO()");
       while (unResultSet.next()) {

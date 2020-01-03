@@ -25,6 +25,7 @@ import conector.QueryDelete
 import conector.QueryInsert
 import conector.QueryUpdate
 import org.uqbar.xtrest.api.annotation.Post
+import conector.QueryPerteneceCategoria
 
 @Controller
 class InfoMultimediaController {
@@ -35,6 +36,7 @@ class InfoMultimediaController {
 	RepoCategorias categorias = RepoCategorias.getInstance
 	RepoTitulos titulos = RepoTitulos.getInstance
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	
 
 	@Get('/contenidos')
 	def Result contenido() {
@@ -45,6 +47,19 @@ class InfoMultimediaController {
 		try {
 
 			ok((contenidos.listaContenidos).toJson)
+		} catch (UserException e) {
+		}
+	}
+	
+	@Get('/categorias/:id')
+	def Result categoriasContenido() {
+
+		var pertenece = new QueryPerteneceCategoria
+		pertenece.llenar(id)
+
+		try {
+
+			ok((categorias.listaCategorias).toJson)
 		} catch (UserException e) {
 		}
 	}
@@ -83,6 +98,7 @@ class InfoMultimediaController {
 
 		try {
 			delete.borrar(id)
+			ok('{ "status" : "OK" }');
 		} catch (Exception e) {
 			badRequest(e.message)
 		}
@@ -203,10 +219,11 @@ class InfoMultimediaController {
 	@Get('/mediaPuntajeAsc/:registros/:desde/:hasta')
 	def Result mediaPuntajeAsc() {
 
-		var fechaDesde = sdf.parse(desde);
-		var fechaDesdeParser = new java.sql.Date(fechaDesde.getTime())
-		var fechaHasta = sdf.parse(desde);
-		var fechaHastaParser = new java.sql.Date(fechaHasta.getTime())
+		val date1 = sdf.parse(parsear(desde));
+	    val fechaDesdeParser = new java.sql.Date(date1.getTime());
+	    
+	    val date2 = sdf.parse(parsear(hasta));
+	    val fechaHastaParser = new java.sql.Date(date2.getTime());
 
 		var encuesta = new QueryEncuesta
 
@@ -222,11 +239,21 @@ class InfoMultimediaController {
 
 	@Get('/mediaPuntajeDesc/:registros/:desde/:hasta')
 	def Result mediaPuntajeDesc() {
+        
+        
+    val startDate = parsear(desde);
 
-		var fechaDesde = sdf.parse(desde);
-		var fechaDesdeParser = new java.sql.Date(fechaDesde.getTime())
-		var fechaHasta = sdf.parse(desde);
-		var fechaHastaParser = new java.sql.Date(fechaHasta.getTime())
+	val sdf1 = new SimpleDateFormat("yyyy-mm-dd");
+	val date1 = sdf1.parse(startDate);
+	val fechaDesdeParser = new java.sql.Date(date1.getTime());
+
+	val finishDate = parsear(hasta);
+
+	val date2 = sdf1.parse(finishDate);
+	val fechaHastaParser = new java.sql.Date(date2.getTime());
+        
+
+		
 
 		var encuesta = new QueryEncuesta
 
@@ -235,47 +262,68 @@ class InfoMultimediaController {
 
 		try {
 
-			ok((titulos.listaTitulo).toJson)
+			ok((encuestas.listaEncuestas).toJson)
 		} catch (UserException e) {
 		}
+	}
+	
+	def parsear(String string) {
+		val ano= string.substring(0,3)
+		val mes= string.substring(4,5)
+		val dia= string.substring(6,7)
+		System.out.println(string.substring(0,4) +'-'+ string.substring(4,6) +'-'+ string.substring(6,8))
+		System.out.println(string.substring(4,6))
+		return string.substring(0,4) +'-'+ string.substring(4,6) +'-'+ string.substring(6,8)
+		
 	}
 
 	@Get('/mediaEncuestaDesc/:registros/:desde/:hasta')
 	def Result mediaEncuestaDesc() {
 
-		var fechaDesde = sdf.parse(desde);
-		var fechaDesdeParser = new java.sql.Date(fechaDesde.getTime())
-		var fechaHasta = sdf.parse(desde);
-		var fechaHastaParser = new java.sql.Date(fechaHasta.getTime())
+		val startDate = parsear(desde);
+
+	val sdf1 = new SimpleDateFormat("yyyy-mm-dd");
+	val date1 = sdf1.parse(startDate);
+	val fechaDesdeParser = new java.sql.Date(date1.getTime());
+
+	val finishDate = parsear(hasta);
+
+	val date2 = sdf1.parse(finishDate);
+	val fechaHastaParser = new java.sql.Date(date2.getTime());
 
 		var encuesta = new QueryEncuesta
 
-		encuesta.llenar("CALL MEDIA_ENCUESTA_DESC(?, ?, ?)", Integer.parseInt(registros), fechaDesdeParser,
+		encuesta.llenar("CALL MEDIA_ENCUESTAS_DESC(?, ?, ?)", Integer.parseInt(registros), fechaDesdeParser,
 			fechaHastaParser)
 
 		try {
 
-			ok((titulos.listaTitulo).toJson)
+			ok((encuestas.listaEncuestas).toJson)
 		} catch (UserException e) {
 		}
 	}
-
 	@Get('/mediaEncuestaAsc/:registros/:desde/:hasta')
 	def Result mediaEncuestaAsc() {
 
-		var fechaDesde = sdf.parse(desde);
-		var fechaDesdeParser = java.sql.Date.valueOf("1990-09-04")
-		var fechaHasta = sdf.parse(hasta);
-		var fechaHastaParser = java.sql.Date.valueOf("2019-09-04")
+		val startDate = parsear(desde);
+
+	val sdf1 = new SimpleDateFormat("yyyy-mm-dd");
+	val date1 = sdf1.parse(startDate);
+	val fechaDesdeParser = new java.sql.Date(date1.getTime());
+
+	val finishDate = parsear(hasta);
+
+	val date2 = sdf1.parse(finishDate);
+	val fechaHastaParser = new java.sql.Date(date2.getTime());
 
 		var encuesta = new QueryEncuesta
 
-		encuesta.llenar("CALL MEDIA_ENCUESTA_ASC(?, ?, ?)", Integer.parseInt(registros), fechaDesdeParser,
+		encuesta.llenar("CALL MEDIA_ENCUESTAS_ASC(?, ?, ?)", Integer.parseInt(registros), fechaDesdeParser,
 			fechaHastaParser)
 
 		try {
 
-			ok((titulos.listaTitulo).toJson)
+			ok((encuestas.listaEncuestas).toJson)
 		} catch (UserException e) {
 		}
 	}

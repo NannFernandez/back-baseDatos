@@ -10,7 +10,7 @@ import org.eclipse.xtext.xbase.lib.Exceptions;
 public class QueryUpdate {
   public void modificar(final Contenido contenido) {
     try {
-      Connection miConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "150696");
+      Connection miConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "mydogpupy170312");
       PreparedStatement sentenciaSQL = miConexion.prepareStatement("CALL ACTUALIZAR_CONTENIDO(?, ?, ?, ?)");
       sentenciaSQL.setInt(1, Integer.parseInt(contenido.getIdContenido()));
       sentenciaSQL.setString(2, contenido.getTitulo());

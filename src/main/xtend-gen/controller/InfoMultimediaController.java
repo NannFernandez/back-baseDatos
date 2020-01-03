@@ -5,6 +5,7 @@ import conector.QueryContenido;
 import conector.QueryDelete;
 import conector.QueryEncuesta;
 import conector.QueryInsert;
+import conector.QueryPerteneceCategoria;
 import conector.QueryTitulos;
 import conector.QueryUpdate;
 import conector.QueryVelocidad;
@@ -73,6 +74,27 @@ public class InfoMultimediaController extends ResultFactory {
     return _xblockexpression;
   }
   
+  @Get("/categorias/:id")
+  public Result categoriasContenido(final String id, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
+    Result _xblockexpression = null;
+    {
+      QueryPerteneceCategoria pertenece = new QueryPerteneceCategoria();
+      pertenece.llenar(id);
+      Result _xtrycatchfinallyexpression = null;
+      try {
+        _xtrycatchfinallyexpression = ResultFactory.ok(this._jSONUtils.toJson(this.categorias.getListaCategorias()));
+      } catch (final Throwable _t) {
+        if (_t instanceof UserException) {
+          _xtrycatchfinallyexpression = null;
+        } else {
+          throw Exceptions.sneakyThrow(_t);
+        }
+      }
+      _xblockexpression = _xtrycatchfinallyexpression;
+    }
+    return _xblockexpression;
+  }
+  
   @Get("/contenidos/:id")
   public Result contenido(final String id, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
     Result _xblockexpression = null;
@@ -122,7 +144,12 @@ public class InfoMultimediaController extends ResultFactory {
       QueryDelete delete = new QueryDelete();
       Result _xtrycatchfinallyexpression = null;
       try {
-        delete.borrar(id);
+        Result _xblockexpression_1 = null;
+        {
+          delete.borrar(id);
+          _xblockexpression_1 = ResultFactory.ok("{ \"status\" : \"OK\" }");
+        }
+        _xtrycatchfinallyexpression = _xblockexpression_1;
       } catch (final Throwable _t) {
         if (_t instanceof Exception) {
           final Exception e = (Exception)_t;
@@ -326,12 +353,12 @@ public class InfoMultimediaController extends ResultFactory {
     try {
       Result _xblockexpression = null;
       {
-        Date fechaDesde = this.sdf.parse(desde);
-        long _time = fechaDesde.getTime();
-        java.sql.Date fechaDesdeParser = new java.sql.Date(_time);
-        Date fechaHasta = this.sdf.parse(desde);
-        long _time_1 = fechaHasta.getTime();
-        java.sql.Date fechaHastaParser = new java.sql.Date(_time_1);
+        final Date date1 = this.sdf.parse(this.parsear(desde));
+        long _time = date1.getTime();
+        final java.sql.Date fechaDesdeParser = new java.sql.Date(_time);
+        final Date date2 = this.sdf.parse(this.parsear(hasta));
+        long _time_1 = date2.getTime();
+        final java.sql.Date fechaHastaParser = new java.sql.Date(_time_1);
         QueryEncuesta encuesta = new QueryEncuesta();
         encuesta.llenar("CALL MEDIA_PUNTAJE_ASC(?, ?, ?)", Integer.parseInt(registros), fechaDesdeParser, fechaHastaParser);
         Result _xtrycatchfinallyexpression = null;
@@ -357,17 +384,20 @@ public class InfoMultimediaController extends ResultFactory {
     try {
       Result _xblockexpression = null;
       {
-        Date fechaDesde = this.sdf.parse(desde);
-        long _time = fechaDesde.getTime();
-        java.sql.Date fechaDesdeParser = new java.sql.Date(_time);
-        Date fechaHasta = this.sdf.parse(desde);
-        long _time_1 = fechaHasta.getTime();
-        java.sql.Date fechaHastaParser = new java.sql.Date(_time_1);
+        final String startDate = this.parsear(desde);
+        final SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-mm-dd");
+        final Date date1 = sdf1.parse(startDate);
+        long _time = date1.getTime();
+        final java.sql.Date fechaDesdeParser = new java.sql.Date(_time);
+        final String finishDate = this.parsear(hasta);
+        final Date date2 = sdf1.parse(finishDate);
+        long _time_1 = date2.getTime();
+        final java.sql.Date fechaHastaParser = new java.sql.Date(_time_1);
         QueryEncuesta encuesta = new QueryEncuesta();
         encuesta.llenar("CALL MEDIA_PUNTAJE_DESC(?, ?, ?)", Integer.parseInt(registros), fechaDesdeParser, fechaHastaParser);
         Result _xtrycatchfinallyexpression = null;
         try {
-          _xtrycatchfinallyexpression = ResultFactory.ok(this._jSONUtils.toJson(this.titulos.getListaTitulo()));
+          _xtrycatchfinallyexpression = ResultFactory.ok(this._jSONUtils.toJson(this.encuestas.getListaEncuestas()));
         } catch (final Throwable _t) {
           if (_t instanceof UserException) {
             _xtrycatchfinallyexpression = null;
@@ -383,22 +413,47 @@ public class InfoMultimediaController extends ResultFactory {
     }
   }
   
+  public String parsear(final String string) {
+    final String ano = string.substring(0, 3);
+    final String mes = string.substring(4, 5);
+    final String dia = string.substring(6, 7);
+    String _substring = string.substring(0, 4);
+    String _plus = (_substring + "-");
+    String _substring_1 = string.substring(4, 6);
+    String _plus_1 = (_plus + _substring_1);
+    String _plus_2 = (_plus_1 + "-");
+    String _substring_2 = string.substring(6, 8);
+    String _plus_3 = (_plus_2 + _substring_2);
+    System.out.println(_plus_3);
+    System.out.println(string.substring(4, 6));
+    String _substring_3 = string.substring(0, 4);
+    String _plus_4 = (_substring_3 + "-");
+    String _substring_4 = string.substring(4, 6);
+    String _plus_5 = (_plus_4 + _substring_4);
+    String _plus_6 = (_plus_5 + "-");
+    String _substring_5 = string.substring(6, 8);
+    return (_plus_6 + _substring_5);
+  }
+  
   @Get("/mediaEncuestaDesc/:registros/:desde/:hasta")
   public Result mediaEncuestaDesc(final String registros, final String desde, final String hasta, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
     try {
       Result _xblockexpression = null;
       {
-        Date fechaDesde = this.sdf.parse(desde);
-        long _time = fechaDesde.getTime();
-        java.sql.Date fechaDesdeParser = new java.sql.Date(_time);
-        Date fechaHasta = this.sdf.parse(desde);
-        long _time_1 = fechaHasta.getTime();
-        java.sql.Date fechaHastaParser = new java.sql.Date(_time_1);
+        final String startDate = this.parsear(desde);
+        final SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-mm-dd");
+        final Date date1 = sdf1.parse(startDate);
+        long _time = date1.getTime();
+        final java.sql.Date fechaDesdeParser = new java.sql.Date(_time);
+        final String finishDate = this.parsear(hasta);
+        final Date date2 = sdf1.parse(finishDate);
+        long _time_1 = date2.getTime();
+        final java.sql.Date fechaHastaParser = new java.sql.Date(_time_1);
         QueryEncuesta encuesta = new QueryEncuesta();
-        encuesta.llenar("CALL MEDIA_ENCUESTA_DESC(?, ?, ?)", Integer.parseInt(registros), fechaDesdeParser, fechaHastaParser);
+        encuesta.llenar("CALL MEDIA_ENCUESTAS_DESC(?, ?, ?)", Integer.parseInt(registros), fechaDesdeParser, fechaHastaParser);
         Result _xtrycatchfinallyexpression = null;
         try {
-          _xtrycatchfinallyexpression = ResultFactory.ok(this._jSONUtils.toJson(this.titulos.getListaTitulo()));
+          _xtrycatchfinallyexpression = ResultFactory.ok(this._jSONUtils.toJson(this.encuestas.getListaEncuestas()));
         } catch (final Throwable _t) {
           if (_t instanceof UserException) {
             _xtrycatchfinallyexpression = null;
@@ -419,15 +474,20 @@ public class InfoMultimediaController extends ResultFactory {
     try {
       Result _xblockexpression = null;
       {
-        Date fechaDesde = this.sdf.parse(desde);
-        java.sql.Date fechaDesdeParser = java.sql.Date.valueOf("1990-09-04");
-        Date fechaHasta = this.sdf.parse(hasta);
-        java.sql.Date fechaHastaParser = java.sql.Date.valueOf("2019-09-04");
+        final String startDate = this.parsear(desde);
+        final SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-mm-dd");
+        final Date date1 = sdf1.parse(startDate);
+        long _time = date1.getTime();
+        final java.sql.Date fechaDesdeParser = new java.sql.Date(_time);
+        final String finishDate = this.parsear(hasta);
+        final Date date2 = sdf1.parse(finishDate);
+        long _time_1 = date2.getTime();
+        final java.sql.Date fechaHastaParser = new java.sql.Date(_time_1);
         QueryEncuesta encuesta = new QueryEncuesta();
-        encuesta.llenar("CALL MEDIA_ENCUESTA_ASC(?, ?, ?)", Integer.parseInt(registros), fechaDesdeParser, fechaHastaParser);
+        encuesta.llenar("CALL MEDIA_ENCUESTAS_ASC(?, ?, ?)", Integer.parseInt(registros), fechaDesdeParser, fechaHastaParser);
         Result _xtrycatchfinallyexpression = null;
         try {
-          _xtrycatchfinallyexpression = ResultFactory.ok(this._jSONUtils.toJson(this.titulos.getListaTitulo()));
+          _xtrycatchfinallyexpression = ResultFactory.ok(this._jSONUtils.toJson(this.encuestas.getListaEncuestas()));
         } catch (final Throwable _t) {
           if (_t instanceof UserException) {
             _xtrycatchfinallyexpression = null;
@@ -475,6 +535,26 @@ public class InfoMultimediaController extends ResultFactory {
             response.setContentType("application/json");
     		
     	    Result result = categoria(target, baseRequest, request, response);
+    	    result.process(response);
+    	    
+    		response.addHeader("Access-Control-Allow-Origin", "*");
+    	    baseRequest.setHandled(true);
+    	    return;
+    	}
+    }
+    {
+    	Matcher matcher = 
+    		Pattern.compile("/categorias/(\\w+)").matcher(target);
+    	if (request.getMethod().equalsIgnoreCase("Get") && matcher.matches()) {
+    		// take parameters from request
+    		
+    		// take variables from url
+    		String id = matcher.group(1);
+    		
+            // set default content type (it can be overridden during next call)
+            response.setContentType("application/json");
+    		
+    	    Result result = categoriasContenido(id, target, baseRequest, request, response);
     	    result.process(response);
     	    
     		response.addHeader("Access-Control-Allow-Origin", "*");
