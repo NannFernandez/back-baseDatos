@@ -11,12 +11,13 @@ public class QueryInsert {
   public void insert(final Contenido contenido) {
     try {
       Connection miConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "mydogpupy170312");
-      PreparedStatement sentenciaSQL = miConexion.prepareStatement("CALL AGREGAR_CONTENIDO(?, ?, ?, ?, ?)");
+      PreparedStatement sentenciaSQL = miConexion.prepareStatement("CALL AGREGAR_CONTENIDO(?, ?, ?, ?, ?,?)");
       sentenciaSQL.setInt(1, Integer.parseInt(contenido.getIdContenido()));
       sentenciaSQL.setString(2, contenido.getTitulo());
       sentenciaSQL.setString(3, contenido.getFechaPublicacion());
       sentenciaSQL.setString(4, contenido.getExtensionArchivo());
       sentenciaSQL.setString(5, "Descargable");
+      sentenciaSQL.setString(6, contenido.getUrl());
       sentenciaSQL.executeQuery();
       System.out.println("\nContenido agregado con exito ;)");
     } catch (final Throwable _t) {

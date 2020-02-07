@@ -14,11 +14,14 @@ public class Contenido {
   
   private String extensionArchivo;
   
-  public Contenido(final String contenido, final String _titulo, final String fecha, final String ext) {
+  private String url;
+  
+  public Contenido(final String contenido, final String _titulo, final String fecha, final String ext, final String _url) {
     this.idContenido = contenido;
     this.titulo = _titulo;
     this.fechaPublicacion = fecha;
     this.extensionArchivo = ext;
+    this.url = _url;
   }
   
   @Pure
@@ -55,5 +58,14 @@ public class Contenido {
   
   public void setExtensionArchivo(final String extensionArchivo) {
     this.extensionArchivo = extensionArchivo;
+  }
+  
+  @Pure
+  public String getUrl() {
+    return this.url;
+  }
+  
+  public void setUrl(final String url) {
+    this.url = url;
   }
 }

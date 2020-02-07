@@ -27,7 +27,8 @@ public class QueryContenido {
           String titulo = unResultSet.getString("titulo");
           String fechaPublicacion = unResultSet.getString("fechaPublicacion");
           String extensionArchivo = unResultSet.getString("extensionArchivo");
-          Contenido contenido = new Contenido(idContenido, titulo, fechaPublicacion, extensionArchivo);
+          String url = unResultSet.getString("url");
+          Contenido contenido = new Contenido(idContenido, titulo, fechaPublicacion, extensionArchivo, url);
           this.contenidos.create(contenido);
         }
       }

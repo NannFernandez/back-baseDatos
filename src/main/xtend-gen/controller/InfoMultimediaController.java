@@ -163,8 +163,8 @@ public class InfoMultimediaController extends ResultFactory {
     return _xblockexpression;
   }
   
-  @Post("/contenidos/agregar/:titulo/:ext")
-  public Result agregar(final String titulo, final String ext, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
+  @Post("/contenidos/agregar/:titulo/:ext/:url")
+  public Result agregar(final String titulo, final String ext, final String url, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
     Result _xblockexpression = null;
     {
       QueryInsert agregar = new QueryInsert();
@@ -177,7 +177,7 @@ public class InfoMultimediaController extends ResultFactory {
           double _plus = (_multiply + 1);
           double _floor = Math.floor(_plus);
           String _string = Integer.valueOf(((int) _floor)).toString();
-          final Contenido actualizado = new Contenido(_string, titulo, "2019-12-18", ext);
+          final Contenido actualizado = new Contenido(_string, titulo, "2020-02-07", ext, url);
           agregar.insert(actualizado);
           _xblockexpression_1 = ResultFactory.ok("{ \"status\" : \"OK\" }");
         }
@@ -195,8 +195,8 @@ public class InfoMultimediaController extends ResultFactory {
     return _xblockexpression;
   }
   
-  @Put("/contenidos/modificar/:titulo/:ext/:id")
-  public Result modificar(final String titulo, final String ext, final String id, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
+  @Put("/contenidos/modificar/:titulo/:ext/:id/:url")
+  public Result modificar(final String titulo, final String ext, final String id, final String url, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
     Result _xblockexpression = null;
     {
       QueryUpdate update = new QueryUpdate();
@@ -204,7 +204,7 @@ public class InfoMultimediaController extends ResultFactory {
       try {
         Result _xblockexpression_1 = null;
         {
-          final Contenido actualizado = new Contenido(id, titulo, "2019-12-18", ext);
+          final Contenido actualizado = new Contenido(id, titulo, "2020-02-07", ext, url);
           update.modificar(actualizado);
           _xblockexpression_1 = ResultFactory.ok("{ \"status\" : \"OK\" }");
         }
@@ -724,27 +724,6 @@ public class InfoMultimediaController extends ResultFactory {
     }
     {
     	Matcher matcher = 
-    		Pattern.compile("/contenidos/agregar/(\\w+)/(\\w+)").matcher(target);
-    	if (request.getMethod().equalsIgnoreCase("Post") && matcher.matches()) {
-    		// take parameters from request
-    		
-    		// take variables from url
-    		String titulo = matcher.group(1);
-    		String ext = matcher.group(2);
-    		
-            // set default content type (it can be overridden during next call)
-            response.setContentType("application/json");
-    		
-    	    Result result = agregar(titulo, ext, target, baseRequest, request, response);
-    	    result.process(response);
-    	    
-    		response.addHeader("Access-Control-Allow-Origin", "*");
-    	    baseRequest.setHandled(true);
-    	    return;
-    	}
-    }
-    {
-    	Matcher matcher = 
     		Pattern.compile("/mediaPuntajeAsc/(\\w+)/(\\w+)/(\\w+)").matcher(target);
     	if (request.getMethod().equalsIgnoreCase("Get") && matcher.matches()) {
     		// take parameters from request
@@ -833,7 +812,29 @@ public class InfoMultimediaController extends ResultFactory {
     }
     {
     	Matcher matcher = 
-    		Pattern.compile("/contenidos/modificar/(\\w+)/(\\w+)/(\\w+)").matcher(target);
+    		Pattern.compile("/contenidos/agregar/(\\w+)/(\\w+)/(\\w+)").matcher(target);
+    	if (request.getMethod().equalsIgnoreCase("Post") && matcher.matches()) {
+    		// take parameters from request
+    		
+    		// take variables from url
+    		String titulo = matcher.group(1);
+    		String ext = matcher.group(2);
+    		String url = matcher.group(3);
+    		
+            // set default content type (it can be overridden during next call)
+            response.setContentType("application/json");
+    		
+    	    Result result = agregar(titulo, ext, url, target, baseRequest, request, response);
+    	    result.process(response);
+    	    
+    		response.addHeader("Access-Control-Allow-Origin", "*");
+    	    baseRequest.setHandled(true);
+    	    return;
+    	}
+    }
+    {
+    	Matcher matcher = 
+    		Pattern.compile("/contenidos/modificar/(\\w+)/(\\w+)/(\\w+)/(\\w+)").matcher(target);
     	if (request.getMethod().equalsIgnoreCase("Put") && matcher.matches()) {
     		// take parameters from request
     		
@@ -841,11 +842,12 @@ public class InfoMultimediaController extends ResultFactory {
     		String titulo = matcher.group(1);
     		String ext = matcher.group(2);
     		String id = matcher.group(3);
+    		String url = matcher.group(4);
     		
             // set default content type (it can be overridden during next call)
             response.setContentType("application/json");
     		
-    	    Result result = modificar(titulo, ext, id, target, baseRequest, request, response);
+    	    Result result = modificar(titulo, ext, id, url, target, baseRequest, request, response);
     	    result.process(response);
     	    
     		response.addHeader("Access-Control-Allow-Origin", "*");

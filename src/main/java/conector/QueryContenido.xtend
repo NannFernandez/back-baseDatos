@@ -27,7 +27,8 @@ class QueryContenido {
 				var String titulo = unResultSet.getString("titulo")
 				var String fechaPublicacion = unResultSet.getString("fechaPublicacion")
 				var String extensionArchivo = unResultSet.getString("extensionArchivo")
-				var contenido= new Contenido (idContenido,titulo,fechaPublicacion,extensionArchivo)
+				var String url = unResultSet.getString("url")
+				var contenido= new Contenido (idContenido,titulo,fechaPublicacion,extensionArchivo,url)
 				contenidos.create(contenido)
 				
 			}
