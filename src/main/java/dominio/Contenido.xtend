@@ -1,6 +1,7 @@
 package dominio
 
 import org.eclipse.xtend.lib.annotations.Accessors
+import java.util.List
 
 @Accessors
 class Contenido {
@@ -9,14 +10,29 @@ class Contenido {
 	String fechaPublicacion 
 	String extensionArchivo 
     String url
-	
-	
-	new(String contenido,String _titulo,String fecha, String ext,String _url){
-		
-	idContenido =contenido
-	titulo = _titulo
-	fechaPublicacion =fecha
-	extensionArchivo =ext		
-    url = _url		
+    List<String> listaCategorias = newArrayList
+
+	// Necesario para fromJSON
+	new() {
+
 	}
+	
+	// para metodos anteriores que no mandan lista de categorias
+	new(String contenido, String _titulo, String fecha, String ext, String _url){
+		idContenido =contenido
+		titulo = _titulo
+		fechaPublicacion =fecha
+		extensionArchivo =ext		
+	    url = _url		
+	}
+
+	new(String contenido,String _titulo,String fecha, String ext,String _url, List<String> _listaCategorias) {
+		idContenido =contenido
+		titulo = _titulo
+		fechaPublicacion =fecha
+		extensionArchivo =ext		
+	    url = _url		
+	    listaCategorias = _listaCategorias
+	}
+
 }

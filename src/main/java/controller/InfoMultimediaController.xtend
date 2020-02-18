@@ -9,7 +9,7 @@ import repos.RepoCategorias
 import repos.RepoTitulos
 import org.uqbar.xtrest.api.Result
 import org.uqbar.xtrest.api.annotation.Get
-import org.omg.CORBA.UserException
+//import org.omg.CORBA.UserException
 import conector.QueryContenido
 import conector.QueryCategoria
 import conector.QueryVelocidad
@@ -26,6 +26,7 @@ import conector.QueryInsert
 import conector.QueryUpdate
 import org.uqbar.xtrest.api.annotation.Post
 import conector.QueryPerteneceCategoria
+import dominio.Test
 
 @Controller
 class InfoMultimediaController {
@@ -116,6 +117,23 @@ class InfoMultimediaController {
             ok('{ "status" : "OK" }');
 		} catch (Exception e) {
 			badRequest(e.message)
+		}
+
+	}
+	
+	@Post("/contenidos/agregar2")
+	def agregar2(@Body String body) {
+		
+		var agregar = new QueryInsert
+		val Contenido contenido = fromJson(body, Contenido)
+
+		System.out.println(contenido.listaCategorias)
+		
+		try {
+			agregar.insert(contenido)
+			ok('{ "status" : "OK" }');
+		} catch(Exception e) {
+			return badRequest(e.message)
 		}
 
 	}
@@ -331,3 +349,4 @@ class InfoMultimediaController {
 	
 
 }
+

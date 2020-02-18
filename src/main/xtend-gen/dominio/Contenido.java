@@ -1,6 +1,8 @@
 package dominio;
 
+import java.util.List;
 import org.eclipse.xtend.lib.annotations.Accessors;
+import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Pure;
 
 @Accessors
@@ -16,12 +18,26 @@ public class Contenido {
   
   private String url;
   
+  private List<String> listaCategorias = CollectionLiterals.<String>newArrayList();
+  
+  public Contenido() {
+  }
+  
   public Contenido(final String contenido, final String _titulo, final String fecha, final String ext, final String _url) {
     this.idContenido = contenido;
     this.titulo = _titulo;
     this.fechaPublicacion = fecha;
     this.extensionArchivo = ext;
     this.url = _url;
+  }
+  
+  public Contenido(final String contenido, final String _titulo, final String fecha, final String ext, final String _url, final List<String> _listaCategorias) {
+    this.idContenido = contenido;
+    this.titulo = _titulo;
+    this.fechaPublicacion = fecha;
+    this.extensionArchivo = ext;
+    this.url = _url;
+    this.listaCategorias = _listaCategorias;
   }
   
   @Pure
@@ -67,5 +83,14 @@ public class Contenido {
   
   public void setUrl(final String url) {
     this.url = url;
+  }
+  
+  @Pure
+  public List<String> getListaCategorias() {
+    return this.listaCategorias;
+  }
+  
+  public void setListaCategorias(final List<String> listaCategorias) {
+    this.listaCategorias = listaCategorias;
   }
 }

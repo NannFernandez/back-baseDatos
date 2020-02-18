@@ -1,18 +1,11 @@
 package controller;
 
-import conector.QueryCategoria;
-import conector.QueryContenido;
 import conector.QueryDelete;
-import conector.QueryEncuesta;
 import conector.QueryInsert;
-import conector.QueryPerteneceCategoria;
-import conector.QueryTitulos;
 import conector.QueryUpdate;
-import conector.QueryVelocidad;
 import dominio.Contenido;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.ServletException;
@@ -21,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Extension;
-import org.omg.CORBA.UserException;
 import org.uqbar.xtrest.api.Result;
+import org.uqbar.xtrest.api.annotation.Body;
 import org.uqbar.xtrest.api.annotation.Controller;
 import org.uqbar.xtrest.api.annotation.Get;
 import org.uqbar.xtrest.api.annotation.Post;
@@ -55,86 +48,26 @@ public class InfoMultimediaController extends ResultFactory {
   
   @Get("/contenidos")
   public Result contenido(final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
-    Result _xblockexpression = null;
-    {
-      QueryContenido contenido = new QueryContenido();
-      contenido.llenar();
-      Result _xtrycatchfinallyexpression = null;
-      try {
-        _xtrycatchfinallyexpression = ResultFactory.ok(this._jSONUtils.toJson(this.contenidos.getListaContenidos()));
-      } catch (final Throwable _t) {
-        if (_t instanceof UserException) {
-          _xtrycatchfinallyexpression = null;
-        } else {
-          throw Exceptions.sneakyThrow(_t);
-        }
-      }
-      _xblockexpression = _xtrycatchfinallyexpression;
-    }
-    return _xblockexpression;
+    throw new Error("Unresolved compilation problems:"
+      + "\nUserException cannot be resolved to a type.");
   }
   
   @Get("/categorias/:id")
   public Result categoriasContenido(final String id, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
-    Result _xblockexpression = null;
-    {
-      QueryPerteneceCategoria pertenece = new QueryPerteneceCategoria();
-      pertenece.llenar(id);
-      Result _xtrycatchfinallyexpression = null;
-      try {
-        _xtrycatchfinallyexpression = ResultFactory.ok(this._jSONUtils.toJson(this.categorias.getListaCategorias()));
-      } catch (final Throwable _t) {
-        if (_t instanceof UserException) {
-          _xtrycatchfinallyexpression = null;
-        } else {
-          throw Exceptions.sneakyThrow(_t);
-        }
-      }
-      _xblockexpression = _xtrycatchfinallyexpression;
-    }
-    return _xblockexpression;
+    throw new Error("Unresolved compilation problems:"
+      + "\nUserException cannot be resolved to a type.");
   }
   
   @Get("/contenidos/:id")
   public Result contenido(final String id, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
-    Result _xblockexpression = null;
-    {
-      QueryContenido contenido = new QueryContenido();
-      contenido.llenar();
-      Result _xtrycatchfinallyexpression = null;
-      try {
-        _xtrycatchfinallyexpression = ResultFactory.ok(this._jSONUtils.toJson(this.contenidos.buscar(id)));
-      } catch (final Throwable _t) {
-        if (_t instanceof UserException) {
-          _xtrycatchfinallyexpression = null;
-        } else {
-          throw Exceptions.sneakyThrow(_t);
-        }
-      }
-      _xblockexpression = _xtrycatchfinallyexpression;
-    }
-    return _xblockexpression;
+    throw new Error("Unresolved compilation problems:"
+      + "\nUserException cannot be resolved to a type.");
   }
   
   @Get("/categoria")
   public Result categoria(final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
-    Result _xblockexpression = null;
-    {
-      QueryCategoria categoria = new QueryCategoria();
-      categoria.llenar();
-      Result _xtrycatchfinallyexpression = null;
-      try {
-        _xtrycatchfinallyexpression = ResultFactory.ok(this._jSONUtils.toJson(this.categorias.getListaCategorias()));
-      } catch (final Throwable _t) {
-        if (_t instanceof UserException) {
-          _xtrycatchfinallyexpression = null;
-        } else {
-          throw Exceptions.sneakyThrow(_t);
-        }
-      }
-      _xblockexpression = _xtrycatchfinallyexpression;
-    }
-    return _xblockexpression;
+    throw new Error("Unresolved compilation problems:"
+      + "\nUserException cannot be resolved to a type.");
   }
   
   @Put("/contenidos/borrar/:id")
@@ -195,6 +128,34 @@ public class InfoMultimediaController extends ResultFactory {
     return _xblockexpression;
   }
   
+  @Post("/contenidos/agregar2")
+  public Result agregar2(@Body final String body, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
+    Result _xblockexpression = null;
+    {
+      QueryInsert agregar = new QueryInsert();
+      final Contenido contenido = this._jSONUtils.<Contenido>fromJson(body, Contenido.class);
+      System.out.println(contenido.getListaCategorias());
+      Result _xtrycatchfinallyexpression = null;
+      try {
+        Result _xblockexpression_1 = null;
+        {
+          agregar.insert(contenido);
+          _xblockexpression_1 = ResultFactory.ok("{ \"status\" : \"OK\" }");
+        }
+        _xtrycatchfinallyexpression = _xblockexpression_1;
+      } catch (final Throwable _t) {
+        if (_t instanceof Exception) {
+          final Exception e = (Exception)_t;
+          return ResultFactory.badRequest(e.getMessage());
+        } else {
+          throw Exceptions.sneakyThrow(_t);
+        }
+      }
+      _xblockexpression = _xtrycatchfinallyexpression;
+    }
+    return _xblockexpression;
+  }
+  
   @Put("/contenidos/modificar/:titulo/:ext/:id/:url")
   public Result modificar(final String titulo, final String ext, final String id, final String url, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
     Result _xblockexpression = null;
@@ -224,193 +185,50 @@ public class InfoMultimediaController extends ResultFactory {
   
   @Get("/velTransfAsc/:registros")
   public Result velTransfAsc(final String registros, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
-    Result _xblockexpression = null;
-    {
-      QueryVelocidad velocidad = new QueryVelocidad();
-      velocidad.llenar("CALL MOSTRAR_VELOC_TRANSF_ASC(?)", Integer.parseInt(registros));
-      Result _xtrycatchfinallyexpression = null;
-      try {
-        _xtrycatchfinallyexpression = ResultFactory.ok(this._jSONUtils.toJson(this.velocidades.getListaVelocidad()));
-      } catch (final Throwable _t) {
-        if (_t instanceof UserException) {
-          _xtrycatchfinallyexpression = null;
-        } else {
-          throw Exceptions.sneakyThrow(_t);
-        }
-      }
-      _xblockexpression = _xtrycatchfinallyexpression;
-    }
-    return _xblockexpression;
+    throw new Error("Unresolved compilation problems:"
+      + "\nUserException cannot be resolved to a type.");
   }
   
   @Get("/velTransfDesc/:registros")
   public Result velTransfDesc(final String registros, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
-    Result _xblockexpression = null;
-    {
-      QueryVelocidad velocidad = new QueryVelocidad();
-      velocidad.llenar("CALL MOSTRAR_VELOC_TRANSF_DESC(?)", Integer.parseInt(registros));
-      Result _xtrycatchfinallyexpression = null;
-      try {
-        _xtrycatchfinallyexpression = ResultFactory.ok(this._jSONUtils.toJson(this.velocidades.getListaVelocidad()));
-      } catch (final Throwable _t) {
-        if (_t instanceof UserException) {
-          _xtrycatchfinallyexpression = null;
-        } else {
-          throw Exceptions.sneakyThrow(_t);
-        }
-      }
-      _xblockexpression = _xtrycatchfinallyexpression;
-    }
-    return _xblockexpression;
+    throw new Error("Unresolved compilation problems:"
+      + "\nUserException cannot be resolved to a type.");
   }
   
   @Get("/velTransfMediaAsc/:registros")
   public Result velTransfMediaAsc(final String registros, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
-    Result _xblockexpression = null;
-    {
-      QueryTitulos titulo = new QueryTitulos();
-      titulo.llenar("CALL EDAD_TRANSF_MEDIA_ASC_POR_TRANSF(?)", Integer.parseInt(registros));
-      Result _xtrycatchfinallyexpression = null;
-      try {
-        _xtrycatchfinallyexpression = ResultFactory.ok(this._jSONUtils.toJson(this.titulos.getListaTitulo()));
-      } catch (final Throwable _t) {
-        if (_t instanceof UserException) {
-          _xtrycatchfinallyexpression = null;
-        } else {
-          throw Exceptions.sneakyThrow(_t);
-        }
-      }
-      _xblockexpression = _xtrycatchfinallyexpression;
-    }
-    return _xblockexpression;
+    throw new Error("Unresolved compilation problems:"
+      + "\nUserException cannot be resolved to a type.");
   }
   
   @Get("/velTransfMediaDesc/:registros")
   public Result velTransfMediaDesc(final String registros, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
-    Result _xblockexpression = null;
-    {
-      QueryTitulos titulo = new QueryTitulos();
-      titulo.llenar("CALL EDAD_TRANSF_MEDIA_DESC_POR_TRANSF(?)", Integer.parseInt(registros));
-      Result _xtrycatchfinallyexpression = null;
-      try {
-        _xtrycatchfinallyexpression = ResultFactory.ok(this._jSONUtils.toJson(this.titulos.getListaTitulo()));
-      } catch (final Throwable _t) {
-        if (_t instanceof UserException) {
-          _xtrycatchfinallyexpression = null;
-        } else {
-          throw Exceptions.sneakyThrow(_t);
-        }
-      }
-      _xblockexpression = _xtrycatchfinallyexpression;
-    }
-    return _xblockexpression;
+    throw new Error("Unresolved compilation problems:"
+      + "\nUserException cannot be resolved to a type.");
   }
   
   @Get("/velEdadMediaAsc/:registros")
   public Result velEdadMediaAsc(final String registros, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
-    Result _xblockexpression = null;
-    {
-      QueryTitulos titulo = new QueryTitulos();
-      titulo.llenar("CALL EDAD_TRANSF_MEDIA_ASC_POR_EDAD(?)", Integer.parseInt(registros));
-      Result _xtrycatchfinallyexpression = null;
-      try {
-        _xtrycatchfinallyexpression = ResultFactory.ok(this._jSONUtils.toJson(this.titulos.getListaTitulo()));
-      } catch (final Throwable _t) {
-        if (_t instanceof UserException) {
-          _xtrycatchfinallyexpression = null;
-        } else {
-          throw Exceptions.sneakyThrow(_t);
-        }
-      }
-      _xblockexpression = _xtrycatchfinallyexpression;
-    }
-    return _xblockexpression;
+    throw new Error("Unresolved compilation problems:"
+      + "\nUserException cannot be resolved to a type.");
   }
   
   @Get("/velEdadMediaDesc/:registros")
   public Result velEdadMediaDesc(final String registros, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
-    Result _xblockexpression = null;
-    {
-      QueryTitulos titulo = new QueryTitulos();
-      titulo.llenar("CALL EDAD_TRANSF_MEDIA_DESC_POR_EDAD(?)", Integer.parseInt(registros));
-      Result _xtrycatchfinallyexpression = null;
-      try {
-        _xtrycatchfinallyexpression = ResultFactory.ok(this._jSONUtils.toJson(this.titulos.getListaTitulo()));
-      } catch (final Throwable _t) {
-        if (_t instanceof UserException) {
-          _xtrycatchfinallyexpression = null;
-        } else {
-          throw Exceptions.sneakyThrow(_t);
-        }
-      }
-      _xblockexpression = _xtrycatchfinallyexpression;
-    }
-    return _xblockexpression;
+    throw new Error("Unresolved compilation problems:"
+      + "\nUserException cannot be resolved to a type.");
   }
   
   @Get("/mediaPuntajeAsc/:registros/:desde/:hasta")
   public Result mediaPuntajeAsc(final String registros, final String desde, final String hasta, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
-    try {
-      Result _xblockexpression = null;
-      {
-        final Date date1 = this.sdf.parse(this.parsear(desde));
-        long _time = date1.getTime();
-        final java.sql.Date fechaDesdeParser = new java.sql.Date(_time);
-        final Date date2 = this.sdf.parse(this.parsear(hasta));
-        long _time_1 = date2.getTime();
-        final java.sql.Date fechaHastaParser = new java.sql.Date(_time_1);
-        QueryEncuesta encuesta = new QueryEncuesta();
-        encuesta.llenar("CALL MEDIA_PUNTAJE_ASC(?, ?, ?)", Integer.parseInt(registros), fechaDesdeParser, fechaHastaParser);
-        Result _xtrycatchfinallyexpression = null;
-        try {
-          _xtrycatchfinallyexpression = ResultFactory.ok(this._jSONUtils.toJson(this.encuestas.getListaEncuestas()));
-        } catch (final Throwable _t) {
-          if (_t instanceof UserException) {
-            _xtrycatchfinallyexpression = null;
-          } else {
-            throw Exceptions.sneakyThrow(_t);
-          }
-        }
-        _xblockexpression = _xtrycatchfinallyexpression;
-      }
-      return _xblockexpression;
-    } catch (Throwable _e) {
-      throw Exceptions.sneakyThrow(_e);
-    }
+    throw new Error("Unresolved compilation problems:"
+      + "\nUserException cannot be resolved to a type.");
   }
   
   @Get("/mediaPuntajeDesc/:registros/:desde/:hasta")
   public Result mediaPuntajeDesc(final String registros, final String desde, final String hasta, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
-    try {
-      Result _xblockexpression = null;
-      {
-        final String startDate = this.parsear(desde);
-        final SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-mm-dd");
-        final Date date1 = sdf1.parse(startDate);
-        long _time = date1.getTime();
-        final java.sql.Date fechaDesdeParser = new java.sql.Date(_time);
-        final String finishDate = this.parsear(hasta);
-        final Date date2 = sdf1.parse(finishDate);
-        long _time_1 = date2.getTime();
-        final java.sql.Date fechaHastaParser = new java.sql.Date(_time_1);
-        QueryEncuesta encuesta = new QueryEncuesta();
-        encuesta.llenar("CALL MEDIA_PUNTAJE_DESC(?, ?, ?)", Integer.parseInt(registros), fechaDesdeParser, fechaHastaParser);
-        Result _xtrycatchfinallyexpression = null;
-        try {
-          _xtrycatchfinallyexpression = ResultFactory.ok(this._jSONUtils.toJson(this.encuestas.getListaEncuestas()));
-        } catch (final Throwable _t) {
-          if (_t instanceof UserException) {
-            _xtrycatchfinallyexpression = null;
-          } else {
-            throw Exceptions.sneakyThrow(_t);
-          }
-        }
-        _xblockexpression = _xtrycatchfinallyexpression;
-      }
-      return _xblockexpression;
-    } catch (Throwable _e) {
-      throw Exceptions.sneakyThrow(_e);
-    }
+    throw new Error("Unresolved compilation problems:"
+      + "\nUserException cannot be resolved to a type.");
   }
   
   public String parsear(final String string) {
@@ -437,70 +255,14 @@ public class InfoMultimediaController extends ResultFactory {
   
   @Get("/mediaEncuestaDesc/:registros/:desde/:hasta")
   public Result mediaEncuestaDesc(final String registros, final String desde, final String hasta, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
-    try {
-      Result _xblockexpression = null;
-      {
-        final String startDate = this.parsear(desde);
-        final SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-mm-dd");
-        final Date date1 = sdf1.parse(startDate);
-        long _time = date1.getTime();
-        final java.sql.Date fechaDesdeParser = new java.sql.Date(_time);
-        final String finishDate = this.parsear(hasta);
-        final Date date2 = sdf1.parse(finishDate);
-        long _time_1 = date2.getTime();
-        final java.sql.Date fechaHastaParser = new java.sql.Date(_time_1);
-        QueryEncuesta encuesta = new QueryEncuesta();
-        encuesta.llenar("CALL MEDIA_ENCUESTAS_DESC(?, ?, ?)", Integer.parseInt(registros), fechaDesdeParser, fechaHastaParser);
-        Result _xtrycatchfinallyexpression = null;
-        try {
-          _xtrycatchfinallyexpression = ResultFactory.ok(this._jSONUtils.toJson(this.encuestas.getListaEncuestas()));
-        } catch (final Throwable _t) {
-          if (_t instanceof UserException) {
-            _xtrycatchfinallyexpression = null;
-          } else {
-            throw Exceptions.sneakyThrow(_t);
-          }
-        }
-        _xblockexpression = _xtrycatchfinallyexpression;
-      }
-      return _xblockexpression;
-    } catch (Throwable _e) {
-      throw Exceptions.sneakyThrow(_e);
-    }
+    throw new Error("Unresolved compilation problems:"
+      + "\nUserException cannot be resolved to a type.");
   }
   
   @Get("/mediaEncuestaAsc/:registros/:desde/:hasta")
   public Result mediaEncuestaAsc(final String registros, final String desde, final String hasta, final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) {
-    try {
-      Result _xblockexpression = null;
-      {
-        final String startDate = this.parsear(desde);
-        final SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-mm-dd");
-        final Date date1 = sdf1.parse(startDate);
-        long _time = date1.getTime();
-        final java.sql.Date fechaDesdeParser = new java.sql.Date(_time);
-        final String finishDate = this.parsear(hasta);
-        final Date date2 = sdf1.parse(finishDate);
-        long _time_1 = date2.getTime();
-        final java.sql.Date fechaHastaParser = new java.sql.Date(_time_1);
-        QueryEncuesta encuesta = new QueryEncuesta();
-        encuesta.llenar("CALL MEDIA_ENCUESTAS_ASC(?, ?, ?)", Integer.parseInt(registros), fechaDesdeParser, fechaHastaParser);
-        Result _xtrycatchfinallyexpression = null;
-        try {
-          _xtrycatchfinallyexpression = ResultFactory.ok(this._jSONUtils.toJson(this.encuestas.getListaEncuestas()));
-        } catch (final Throwable _t) {
-          if (_t instanceof UserException) {
-            _xtrycatchfinallyexpression = null;
-          } else {
-            throw Exceptions.sneakyThrow(_t);
-          }
-        }
-        _xblockexpression = _xtrycatchfinallyexpression;
-      }
-      return _xblockexpression;
-    } catch (Throwable _e) {
-      throw Exceptions.sneakyThrow(_e);
-    }
+    throw new Error("Unresolved compilation problems:"
+      + "\nUserException cannot be resolved to a type.");
   }
   
   public void handle(final String target, final Request baseRequest, final HttpServletRequest request, final HttpServletResponse response) throws IOException, ServletException {
@@ -535,6 +297,26 @@ public class InfoMultimediaController extends ResultFactory {
             response.setContentType("application/json");
     		
     	    Result result = categoria(target, baseRequest, request, response);
+    	    result.process(response);
+    	    
+    		response.addHeader("Access-Control-Allow-Origin", "*");
+    	    baseRequest.setHandled(true);
+    	    return;
+    	}
+    }
+    {
+    	Matcher matcher = 
+    		Pattern.compile("/contenidos/agregar2").matcher(target);
+    	if (request.getMethod().equalsIgnoreCase("Post") && matcher.matches()) {
+    		// take parameters from request
+    		String body = readBodyAsString(request);
+    		
+    		// take variables from url
+    		
+            // set default content type (it can be overridden during next call)
+            response.setContentType("application/json");
+    		
+    	    Result result = agregar2(body, target, baseRequest, request, response);
     	    result.process(response);
     	    
     		response.addHeader("Access-Control-Allow-Origin", "*");
