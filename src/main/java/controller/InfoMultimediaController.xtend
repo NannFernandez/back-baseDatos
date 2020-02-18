@@ -27,6 +27,7 @@ import conector.QueryUpdate
 import org.uqbar.xtrest.api.annotation.Post
 import conector.QueryPerteneceCategoria
 import dominio.Test
+import org.omg.CORBA.UserException
 
 @Controller
 class InfoMultimediaController {
@@ -107,16 +108,18 @@ class InfoMultimediaController {
 	}
 	
 	@Post("/contenidos/agregar/:titulo/:ext/:url") // polemico , ver mejor 
-	/*Falta Probarlo */ def agregar() {
+	/*Falta Probarlo */ def agregar(@Body String body) {
 		
 		var agregar = new QueryInsert
+		val Contenido contenido = fromJson(body, Contenido)
 
+		System.out.println(contenido.listaCategorias)
+		
 		try {
-			val actualizado = new Contenido( (Math.floor(Math.random()*200+1) as int).toString ,titulo,"2020-02-07",ext,url)
-			agregar.insert(actualizado)
-            ok('{ "status" : "OK" }');
-		} catch (Exception e) {
-			badRequest(e.message)
+			agregar.insert(contenido)
+			ok('{ "status" : "OK" }');
+		} catch(Exception e) {
+			return badRequest(e.message)
 		}
 
 	}
@@ -144,7 +147,7 @@ class InfoMultimediaController {
 		var update = new QueryUpdate
 
 		try {
-			val actualizado = new Contenido (id ,titulo,"2020-02-07",ext,url)
+			val actualizado = new Contenido (id ,titulo,"2020-02-19",ext,url)
 			update.modificar(actualizado)
 			ok('{ "status" : "OK" }');
 
@@ -153,6 +156,24 @@ class InfoMultimediaController {
 		}
 
 	}
+	
+	@Put("/contenidos/modificar2") 
+	/*Falta Probarlo */def modificar2(@Body String body) {
+		
+		var update = new QueryUpdate
+		val Contenido contenido = fromJson(body, Contenido)
+
+		System.out.println(contenido.listaCategorias)
+		
+		try {
+			update.modificar(contenido)
+			ok('{ "status" : "OK" }');
+		} catch(Exception e) {
+			return badRequest(e.message)
+		}
+
+	}
+	
 
 	@Get('/velTransfAsc/:registros')
 	def Result velTransfAsc() {

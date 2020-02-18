@@ -12,7 +12,7 @@ class QueryPerteneceCategoria {
 		categorias.vaciar
 		try {
 			
-			var Connection unaConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "mydogpupy170312")
+			var Connection unaConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "150696")
 			
 			var PreparedStatement unStatement = unaConexion.prepareStatement("CALL CONTENIDO_CATEGORIAS(?)")
 			unStatement.setInt(1, Integer.parseInt(idContenido))

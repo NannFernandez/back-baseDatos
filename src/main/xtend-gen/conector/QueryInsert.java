@@ -10,9 +10,13 @@ import org.eclipse.xtext.xbase.lib.Exceptions;
 public class QueryInsert {
   public void insert(final Contenido contenido) {
     try {
-      Connection miConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "mydogpupy170312");
+      Connection miConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "150696");
       PreparedStatement sentenciaSQL = miConexion.prepareStatement("CALL AGREGAR_CONTENIDO(?, ?, ?, ?, ?,?)");
-      sentenciaSQL.setInt(1, Integer.parseInt(contenido.getIdContenido()));
+      double _random = Math.random();
+      double _multiply = (_random * 200);
+      double _plus = (_multiply + 1);
+      double _floor = Math.floor(_plus);
+      sentenciaSQL.setInt(1, ((int) _floor));
       sentenciaSQL.setString(2, contenido.getTitulo());
       sentenciaSQL.setString(3, contenido.getFechaPublicacion());
       sentenciaSQL.setString(4, contenido.getExtensionArchivo());

@@ -15,7 +15,7 @@ public class QueryPerteneceCategoria {
   public void llenar(final String idContenido) {
     this.categorias.vaciar();
     try {
-      Connection unaConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "mydogpupy170312");
+      Connection unaConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "150696");
       PreparedStatement unStatement = unaConexion.prepareStatement("CALL CONTENIDO_CATEGORIAS(?)");
       unStatement.setInt(1, Integer.parseInt(idContenido));
       ResultSet unResultSet = unStatement.executeQuery();
