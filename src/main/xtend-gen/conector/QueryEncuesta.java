@@ -23,7 +23,6 @@ public class QueryEncuesta {
   private SimpleDateFormat sdf1 = new SimpleDateFormat("dd-mm-yyyy");
   
   private Date date1 = new Function0<Date>() {
-    @Override
     public Date apply() {
       try {
         Date _parse = QueryEncuesta.this.sdf1.parse(QueryEncuesta.this.startDate);
@@ -39,7 +38,6 @@ public class QueryEncuesta {
   private String finishDate = "01-02-9999";
   
   private Date date2 = new Function0<Date>() {
-    @Override
     public Date apply() {
       try {
         Date _parse = QueryEncuesta.this.sdf1.parse(QueryEncuesta.this.finishDate);
@@ -56,7 +54,7 @@ public class QueryEncuesta {
     this.encuestas.vaciar();
     try {
       Connection unaConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", 
-        "mydogpupy170312");
+        "150696");
       PreparedStatement unStatement = unaConexion.prepareStatement(query);
       unStatement.setInt(1, registros);
       unStatement.setDate(2, fechaDesde);

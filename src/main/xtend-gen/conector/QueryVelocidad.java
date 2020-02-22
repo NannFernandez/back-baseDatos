@@ -21,7 +21,7 @@ public class QueryVelocidad {
   public void llenar(final String query, final int registros) {
     this.velocidades.vaciar();
     try {
-      Connection unaConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "mydogpupy170312");
+      Connection unaConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "150696");
       PreparedStatement unStatement = unaConexion.prepareStatement(query);
       unStatement.setInt(1, registros);
       ResultSet unResultSet = unStatement.executeQuery();

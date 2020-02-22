@@ -21,7 +21,7 @@ class QueryVelocidad {
 	def llenar(String query, int registros) {
 		velocidades.vaciar
 		try {
-			var Connection unaConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "mydogpupy170312")
+			var Connection unaConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "150696")
 			var PreparedStatement unStatement = unaConexion.prepareStatement(query)
 			 unStatement.setInt(1, registros)
 			var ResultSet unResultSet = unStatement.executeQuery()

@@ -29,3 +29,9 @@
 /.QueryPerteneceCategoria.java._trace
 /.QueryPerteneceCategoria.xtendbin
 /QueryPerteneceCategoria.java
+/.QueryDelete.xtendbin
+/.QueryInsert.xtendbin
+/.QueryUpdate.xtendbin
+/QueryDelete.java
+/QueryInsert.java
+/QueryUpdate.java

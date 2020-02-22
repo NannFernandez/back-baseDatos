@@ -36,7 +36,7 @@ class QueryEncuesta {
 		try {
 
 			var Connection unaConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root",
-				"mydogpupy170312")
+				"150696")
 			var PreparedStatement unStatement = unaConexion.prepareStatement(query)
 			unStatement.setInt(1, registros)
 			unStatement.setDate(2, fechaDesde)
