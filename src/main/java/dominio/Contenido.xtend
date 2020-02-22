@@ -10,7 +10,7 @@ class Contenido {
 	String fechaPublicacion 
 	String extensionArchivo 
     String url
-    List<String> listaCategorias = newArrayList
+    List<String> categorias = newArrayList
 
 	// Necesario para fromJSON
 	new() {
@@ -32,7 +32,7 @@ class Contenido {
 		fechaPublicacion =fecha
 		extensionArchivo =ext		
 	    url = _url		
-	    listaCategorias = _listaCategorias
+	    categorias = _listaCategorias
 	}
 
 }
