@@ -42,7 +42,7 @@ public class QueryPerteneceCategoria {
     try {
       ResultSet _xblockexpression = null;
       {
-        Connection miConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "mydogpupy170312");
+        Connection miConexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "150696");
         PreparedStatement sentenciaSQL = miConexion.prepareStatement("CALL ELIMINAR_CONTENIDO_PERTENECE_CATEGORIA(?, ?)");
         sentenciaSQL.setInt(1, Integer.parseInt(idContenido));
         sentenciaSQL.setInt(2, Integer.parseInt(idCategoria));

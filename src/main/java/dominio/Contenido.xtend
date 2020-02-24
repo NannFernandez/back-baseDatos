@@ -2,6 +2,7 @@ package dominio
 
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
+import com.fasterxml.jackson.annotation.JsonIgnore
 
 @Accessors
 class Contenido {
@@ -10,7 +11,10 @@ class Contenido {
 	String fechaPublicacion 
 	String extensionArchivo 
     String url
-    List<String> categorias = newArrayList
+    @JsonIgnore List<String> categorias = newArrayList
+     List<String> listaCategorias = newArrayList
+    @JsonIgnore int i
+    
 
 	// Necesario para fromJSON
 	new() {
@@ -34,5 +38,17 @@ class Contenido {
 	    url = _url		
 	    categorias = _listaCategorias
 	}
+	
+	def asignarCategorias(java.util.List<Categoria> _categorias) {
+		
+		for(i=0;i<_categorias.length;i++){
+			listaCategorias.add(_categorias.get(i).idCategoria)
+		}
+		
+		categorias=listaCategorias
+
+	}
+	
+
 
 }
