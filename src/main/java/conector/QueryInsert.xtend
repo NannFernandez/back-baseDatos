@@ -35,6 +35,7 @@ class QueryInsert {
            
 			
 			System.out.println("\nContenido agregado con exito ;)")
+			miConexion.close()
 			
 		} catch (Exception e) {
 			System.out.println("\nNO HUBO CONEXION!")

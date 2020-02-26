@@ -55,15 +55,17 @@ class InfoMultimediaController {
 		}
 	}
 	
-	@Get('/categorias/:id')
+	@Get('/categorias/:id')//no
 	def Result categoriasContenido() {
 
 		var pertenece = new QueryPerteneceCategoria
 		pertenece.llenar(id)
+		
+		System.out.println(pertenece)
 
 		try {
 
-			ok((categorias.listaCategorias).toJson)
+			ok((pertenece).toJson)
 		} catch (UserException e) {
 		}
 	}
@@ -259,12 +261,16 @@ class InfoMultimediaController {
 
 	@Get('/mediaPuntajeAsc/:registros/:desde/:hasta')
 	def Result mediaPuntajeAsc() {
-
-		val date1 = sdf.parse(parsear(desde));
-	    val fechaDesdeParser = new java.sql.Date(date1.getTime());
-	    
-	    val date2 = sdf.parse(parsear(hasta));
-	    val fechaHastaParser = new java.sql.Date(date2.getTime());
+	    val startDate = parsear(desde);
+	
+		val sdf1 = new SimpleDateFormat("yyyy-mm-dd");
+		val date1 = sdf1.parse(startDate);
+		val fechaDesdeParser = new java.sql.Date(date1.getTime());
+	
+		val finishDate = parsear(hasta);
+	
+		val date2 = sdf1.parse(finishDate);
+		val fechaHastaParser = new java.sql.Date(date2.getTime());
 
 		var encuesta = new QueryEncuesta
 
@@ -280,21 +286,16 @@ class InfoMultimediaController {
 
 	@Get('/mediaPuntajeDesc/:registros/:desde/:hasta')
 	def Result mediaPuntajeDesc() {
-        
-        
-    val startDate = parsear(desde);
-
-	val sdf1 = new SimpleDateFormat("yyyy-mm-dd");
-	val date1 = sdf1.parse(startDate);
-	val fechaDesdeParser = new java.sql.Date(date1.getTime());
-
-	val finishDate = parsear(hasta);
-
-	val date2 = sdf1.parse(finishDate);
-	val fechaHastaParser = new java.sql.Date(date2.getTime());
-        
-
-		
+	    val startDate = parsear(desde);
+	
+		val sdf1 = new SimpleDateFormat("yyyy-mm-dd");
+		val date1 = sdf1.parse(startDate);
+		val fechaDesdeParser = new java.sql.Date(date1.getTime());
+	
+		val finishDate = parsear(hasta);
+	
+		val date2 = sdf1.parse(finishDate);
+		val fechaHastaParser = new java.sql.Date(date2.getTime());
 
 		var encuesta = new QueryEncuesta
 

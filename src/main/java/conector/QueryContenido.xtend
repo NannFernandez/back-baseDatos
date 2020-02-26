@@ -8,15 +8,10 @@ import repos.RepoCategorias
 
 @Accessors
 class QueryContenido {
-	//def static void main(String[] args) {
-		// TODO Auto-generated method stub
 	RepoContenidos contenidos=	RepoContenidos.getInstance
 	RepoCategorias categorias=	RepoCategorias.getInstance
 	def llenar(){	 
 		contenidos.vaciar
-		
-		
-		
 		
 		try {
 			// Creamos conexion

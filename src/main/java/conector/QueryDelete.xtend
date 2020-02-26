@@ -13,6 +13,7 @@ def borrar(String id ){
 			sentenciaSQL.setInt(1, Integer.parseInt(id))
 			sentenciaSQL.executeQuery()
 			System.out.println("\nContenido eliminado con exito ;)")
+			miConexion.close()
 		} catch (Exception e) {
 			System.out.println("\nNO HUBO CONEXION!")
 			e.printStackTrace()

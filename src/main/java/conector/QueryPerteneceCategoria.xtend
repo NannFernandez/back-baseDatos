@@ -27,6 +27,7 @@ class QueryPerteneceCategoria {
 				categorias.create(cat)
 				
 			}
+			unaConexion.close()
 		} catch (Exception e) {
 			System.out.println("No hubo conexion!!")
 			e.printStackTrace()
