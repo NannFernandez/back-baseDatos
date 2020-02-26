@@ -16,18 +16,20 @@ import conector.QueryVelocidad
 import conector.QueryTitulos
 import conector.QueryEncuesta
 import java.text.SimpleDateFormat
-import java.util.Date
+//import java.util.Date
 import org.uqbar.xtrest.api.annotation.Put
 import org.uqbar.xtrest.api.annotation.Body
-import org.uqbar.xtrest.http.ContentType
+//import org.uqbar.xtrest.http.ContentType
 import dominio.Contenido
 import conector.QueryDelete
 import conector.QueryInsert
 import conector.QueryUpdate
 import org.uqbar.xtrest.api.annotation.Post
 import conector.QueryPerteneceCategoria
-import dominio.Test
-import org.omg.CORBA.UserException
+//import dominio.Test
+//import org.omg.CORBA.UserException
+
+class UserException extends Exception {}
 
 @Controller
 class InfoMultimediaController {
@@ -307,9 +309,9 @@ class InfoMultimediaController {
 	}
 	
 	def parsear(String string) {
-		val ano= string.substring(0,3)
-		val mes= string.substring(4,5)
-		val dia= string.substring(6,7)
+//		val ano= string.substring(0,3)
+//		val mes= string.substring(4,5)
+//		val dia= string.substring(6,7)
 		System.out.println(string.substring(0,4) +'-'+ string.substring(4,6) +'-'+ string.substring(6,8))
 		System.out.println(string.substring(4,6))
 		return string.substring(0,4) +'-'+ string.substring(4,6) +'-'+ string.substring(6,8)
